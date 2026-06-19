@@ -14,8 +14,8 @@ class OpenLibraryService
     {
         $formattedTerm = Str::snake(Str::lower(trim($subject)));
 
-        $response = Http::timeout(30)
-            ->retry(3, 100)
+        $response = Http::timeout(20)
+            ->retry(4, 100)
             ->get(self::BASE_URL . "/subjects/{$formattedTerm}.json", [
                 'limit' => $limit
             ]);
