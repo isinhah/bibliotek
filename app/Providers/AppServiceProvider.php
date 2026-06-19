@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
+use App\Http\Responses\LoginResponse as CustomLoginResponse;
+use Filament\Http\Responses\Auth\Contracts\LoginResponse as LoginResponseContract; // O Contrato oficial
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

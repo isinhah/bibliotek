@@ -11,9 +11,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password'])]
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+
+#[Fillable(['name', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -34,5 +37,18 @@ class User extends Authenticatable
 
     public function loans(): HasMany {
         return $this->hasMany(Loan::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return $this->hasRole('admin');
+        }
+
+        if ($panel->getId() === 'reader') {
+            return true;
+        }
+
+        return false;
     }
 }
