@@ -8,61 +8,43 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-900 antialiased min-h-screen flex flex-col">
 
-<nav class="bg-slate-900 text-slate-100 shadow-md border-b border-slate-800">
-    <div class="container mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
+<nav class="bg-slate-950 text-slate-100 border-b border-slate-900 shadow-lg">
+    <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
 
-        <div class="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto text-center sm:text-left">
-            <a href="/" class="text-xl font-bold tracking-wider hover:text-emerald-400 transition">
-                Bibliotek
+        <div class="flex items-center gap-8 w-full sm:w-auto">
+            <a href="/" class="text-xl font-bold tracking-tight text-white transition duration-200">
+                Bibliotek<span class="text-[#b91c1c]">.</span>
             </a>
-            <div class="flex flex-wrap justify-center gap-4 text-sm font-medium">
-                <a href="{{ route('categories.public') }}" class="text-slate-300 hover:text-white transition">Categorias</a>
-                <a href="{{ route('authors.index') }}" class="text-slate-300 hover:text-white transition">Autores</a>
-
-                @auth
-                    @unlessrole('admin')
-                    <a href="{{ route('loans.index') }}" class="text-slate-300 hover:text-white transition">Meus Empréstimos</a>
-                    @endunlessrole
-                @endauth
-
-                @role('admin')
-                <span class="text-slate-700 hidden sm:inline">|</span>
-                <a href="{{ route('categories.index') }}" class="text-emerald-400 hover:text-emerald-300 transition font-semibold">
-                    Categorias
-                </a>
-                <a href="{{ route('admin.authors.index') }}" class="text-emerald-400 hover:text-emerald-300 transition font-semibold">
-                    Autores
-                </a>
-                <a href="{{ route('admin.books.index') }}" class="text-emerald-400 hover:text-emerald-300 transition font-semibold">
-                    Livros
-                </a>
-                <a href="{{ route('admin.loans.index') }}" class="text-emerald-400 hover:text-emerald-300 transition font-semibold">
-                    Empréstimos
-                </a>
-                @endrole
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <a href="{{ route('categories.public') }}" class="hover:text-[#b91c1c] transition-colors duration-200">Categorias</a>
+                <a href="{{ route('authors.index') }}" class="hover:text-[#b91c1c] transition-colors duration-200">Autores</a>
             </div>
         </div>
 
-        <div class="flex items-center gap-4 text-sm font-medium w-full sm:w-auto justify-center sm:justify-end">
+        <div class="flex items-center gap-6 text-sm font-medium w-full sm:w-auto justify-center sm:justify-end">
             @auth
-                <span class="text-slate-400">
-                    Olá, <span class="capitalize text-slate-200 font-semibold">{{ auth()->user()->name }}</span>
-                </span>
+                @role('admin')
+                <a href="{{ route('filament.admin.pages.dashboard') }}" class="text-slate-200 hover:text-[#b91c1c] transition-colors duration-200 font-semibold">
+                    Painel (Admin)
+                </a>
+            @else
+                <a href="{{ route('filament.reader.pages.dashboard') }}" class="text-slate-200 hover:text-[#b91c1c] transition-colors duration-200 font-semibold">
+                    Minha Biblioteca
+                </a>
+                @endrole
 
-                <form action="{{ route('logout') }}" method="POST" class="m-0 inline">
+                <form action="{{ route('logout') }}" method="post" class="m-0">
                     @csrf
-                    <button type="submit" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition">
+                    <button type="submit" class="text-slate-500 hover:text-slate-300 transition text-xs font-semibold uppercase tracking-wider">
                         Sair
                     </button>
                 </form>
-            @else
-                <a href="{{ route('login') }}" class="text-slate-300 hover:text-white transition">
-                    Entrar
-                </a>
-                <a href="{{ route('register') }}" class="bg-emerald-600 text-white hover:bg-emerald-500 px-3 py-1.5 rounded-lg font-semibold shadow-sm transition text-xs">
-                    Criar Conta
-                </a>
-            @endauth
+                @else
+                    <a href="{{ route('login') }}" class="text-slate-300 hover:text-white transition">Entrar</a>
+                    <a href="{{ route('register') }}" class="bg-[#b91c1c] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#991b1b] transition shadow-md text-xs uppercase tracking-wider">
+                        Criar Conta
+                    </a>
+                @endauth
         </div>
 
     </div>
