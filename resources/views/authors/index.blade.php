@@ -1,88 +1,95 @@
-<x-layout title="Autores">
+<x-layout title="Autores — Bibliotek">
 
-    <div class="mb-6 flex justify-between items-center">
+    <header class="mb-12 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-slate-800">Autores</h1>
-            <p class="text-gray-500 text-sm mt-1">Conheça os escritores disponíveis no nosso acervo.</p>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-950 tracking-tighter">
+                Escritores e Autores
+            </h1>
+            <p class="text-slate-500 mt-2 max-w-xl text-base">
+                Conheça os escritores e autores disponíveis no nosso acervo.
+            </p>
         </div>
 
-        <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium border border-gray-200/60">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200/40">
             Total: {{ $authors->total() }} autores
         </span>
-    </div>
+    </header>
 
-    <div class="mb-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <form action="{{ route('authors.index') }}" method="GET" class="w-full sm:max-w-md flex gap-2 m-0">
-            @if(!empty($selectedLetter))
-                <input type="hidden" name="letter" value="{{ $selectedLetter }}">
-            @endif
-            <div class="relative flex-1">
+    <div class="mb-14 space-y-6">
+        <div class="max-w-xl">
+            <form action="{{ route('authors.index') }}" method="GET" class="relative group m-0">
+                @if(!empty($selectedLetter))
+                    <input type="hidden" name="letter" value="{{ $selectedLetter }}">
+                @endif
                 <input
                     type="text"
                     name="search"
                     value="{{ $searchTerm }}"
-                    placeholder="Pesquisar por nome do autor..."
-                    class="w-full pl-3 pr-10 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 text-gray-700 bg-transparent border-gray-200"
+                    placeholder="Pesquisar autor por nome..."
+                    class="w-full pl-6 pr-12 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b91c1c] transition-all text-sm text-slate-800"
                 >
                 @if(!empty($searchTerm))
-                    <a href="{{ route('authors.index', request()->except('search')) }}" class="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 text-sm">
+                    <a href="{{ route('authors.index', ['letter' => $selectedLetter]) }}" class="absolute right-10 top-3.5 text-slate-400 hover:text-slate-600 text-sm transition">
                         ✕
                     </a>
                 @endif
-            </div>
-            <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition shadow-sm">
-                Buscar
-            </button>
-        </form>
-
-        <div class="text-xs text-gray-400 font-medium">
-            @if(!empty($searchTerm))
-                Encontrado(s) {{ $authors->total() }} autor(es) para "{{ $searchTerm }}"
-            @endif
+                <button type="submit" class="absolute right-4 top-3.5 text-slate-400 hover:text-[#b91c1c] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </form>
         </div>
-    </div>
 
-    <div class="mb-6 bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex flex-wrap gap-1 items-center justify-center">
-        <a href="{{ route('authors.index', request()->except('letter')) }}"
-           class="px-3 py-1 text-xs font-bold rounded-lg transition {{ empty($selectedLetter) ? 'bg-slate-900 text-white shadow-sm' : 'text-gray-600 hover:bg-gray-100' }}">
-            Todos
-        </a>
-
-        @foreach($alphabet as $letter)
-            <a href="{{ route('authors.index', array_merge(request()->query(), ['letter' => $letter, 'page' => 1])) }}"
-               class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded-lg transition {{ $selectedLetter === $letter ? 'bg-slate-900 text-white shadow-sm' : 'text-gray-600 hover:bg-gray-100' }}">
-                {{ $letter }}
+        <div class="flex flex-wrap gap-1.5 pb-2 border-b border-slate-100">
+            <a href="{{ route('authors.index', ['search' => $searchTerm]) }}"
+               class="px-3 py-1.5 rounded-xl text-xs font-semibold transition {{ empty($selectedLetter) ? 'bg-slate-950 text-white' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900' }}">
+                Todos
             </a>
-        @endforeach
+            @foreach(range('A', 'Z') as $char)
+                <a href="{{ route('authors.index', ['letter' => $char, 'search' => $searchTerm]) }}"
+                   class="w-8 h-8 flex items-center justify-center rounded-xl text-xs font-semibold transition {{ $selectedLetter === $char ? 'bg-[#b91c1c] text-white' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900' }}">
+                    {{ $char }}
+                </a>
+            @endforeach
+        </div>
     </div>
 
     @if($authors->isEmpty())
-        <div class="bg-white p-12 rounded-xl shadow-sm text-center border border-gray-100 text-gray-500 text-sm">
-            Nenhum autor encontrado.
-            <div class="mt-2">
-                <a href="{{ route('authors.index') }}" class="text-sm font-bold text-slate-700 hover:text-slate-900 underline">Limpar todos os filtros</a>
-            </div>
+        <div class="bg-white p-16 rounded-2xl shadow-sm text-center border border-slate-100 text-slate-500 text-sm">
+            Nenhum escritor encontrado com os critérios selecionados.
+            @if(!empty($searchTerm) || !empty($selectedLetter))
+                <a href="{{ route('authors.index') }}" class="block mt-3 text-sm font-semibold text-[#b91c1c] hover:underline">
+                    Limpar todos os filtros
+                </a>
+            @endif
         </div>
     @else
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @foreach($authors as $author)
-                <a href="{{ route('authors.books.index', $author->id) }}" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:border-slate-400/70 transition flex justify-between items-center group">
-                    <div>
-                        <h3 class="font-bold text-slate-800 group-hover:text-slate-900 transition capitalize">
+                <a href="{{ route('authors.books.index', $author->id) }}"
+                   class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-slate-200/60 transition-all duration-300 flex justify-between items-center">
+
+                    <div class="space-y-1 min-w-0">
+                        <h3 class="font-bold text-slate-900 group-hover:text-[#b91c1c] transition-colors duration-200 capitalize text-lg tracking-tight truncate">
                             {{ $author->name }}
                         </h3>
-                        <span class="text-xs text-gray-400 block mt-0.5">
-                            {{ $author->books_count }} {{ $author->books_count === 1 ? 'livro' : 'livros' }} no acervo
+                        <span class="inline-flex items-center text-xs font-medium text-slate-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2 group-hover:bg-[#b91c1c] transition-colors duration-200"></span>
+                            {{ $author->books_count }} {{ $author->books_count === 1 ? 'livro no acervo' : 'livros no acervo' }}
                         </span>
                     </div>
-                    <span class="text-gray-300 group-hover:text-slate-800 font-bold text-base transition transform group-hover:translate-x-0.5">→</span>
+
+                    <span class="text-slate-300 group-hover:text-[#b91c1c] group-hover:translate-x-1 transform text-xl font-light transition-all duration-200 pl-4">
+                        →
+                    </span>
                 </a>
             @endforeach
         </div>
 
         @if($authors->hasPages())
-            <div class="mt-8 bg-white p-4 rounded-xl border border-gray-100 shadow-sm [&_nav]:flex [&_nav]:justify-between [&_a]:bg-white [&_a]:text-slate-700 [&_a]:border-gray-200 [&_a]:hover:bg-gray-50 [&_span]:bg-slate-900 [&_span]:text-white [&_span]:border-slate-900">
-                {{ $authors->links() }}
+            <div class="mt-12">
+                {{ $authors->links('pagination::simple-tailwind') }}
             </div>
         @endif
     @endif

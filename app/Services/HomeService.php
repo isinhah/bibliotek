@@ -17,12 +17,11 @@ class HomeService
             ->paginate($perPage);
     }
 
-    public function getCategoriesWithRecentBooks(int $booksLimit = 10): Collection
+    public function getCategoriesWithRecentBooks(int $booksLimit)
     {
         return Category::has('books')
             ->with(['books' => function ($query) use ($booksLimit) {
-                $query->with('author')->latest()->take($booksLimit);
-            }])
-            ->get();
+            $query->with('author')->latest()->take($booksLimit);
+        }])->paginate(4);
     }
 }

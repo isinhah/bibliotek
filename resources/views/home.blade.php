@@ -1,95 +1,110 @@
 <x-layout title="Bibliotek">
-
-    <div class="mb-10 text-center sm:text-left">
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Descubra sua próxima leitura!
+    <header class="mb-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-black text-slate-950 tracking-tighter">
+            Bem vindo ao acervo.
         </h1>
-        <p class="text-slate-500 text-sm sm:text-base mt-2 max-w-xl">
-            Explore nosso acervo completo e viaje por novas histórias.
+        <p class="text-slate-500 mt-4 max-w-lg mx-auto text-lg">
+            Explore a bibliotek e encontre sua próxima leitura.
         </p>
+    </header>
+
+    <div class="mb-14 max-w-xl mx-auto">
+        <form action="{{ route('home') }}" method="GET" class="relative group">
+            <input
+                type="text"
+                name="search"
+                value="{{ $searchTerm }}"
+                placeholder="Pesquisar pelo título do livro..."
+                class="w-full pl-6 pr-12 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b91c1c] transition-all"
+            >
+            <button type="submit" class="absolute right-4 top-4 text-slate-400 hover:text-[#b91c1c]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </button>
+        </form>
     </div>
 
-    <div class="mb-6">
+    <div class="max-w-xl mx-auto">
         <x-alert />
     </div>
 
-    <div class="mb-12 max-w-2xl bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row items-center gap-3">
-        <form action="{{ route('home') }}" method="GET" class="w-full flex gap-2 m-0">
-            <div class="relative flex-1">
-                <input
-                    type="text"
-                    name="search"
-                    value="{{ $searchTerm }}"
-                    placeholder="Pesquise por título em todo o acervo..."
-                    class="w-full pl-4 pr-10 py-2.5 border-none rounded-lg text-sm focus:outline-none text-slate-700 bg-transparent"
-                >
-                @if(!empty($searchTerm))
-                    <a href="{{ route('home') }}" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 text-sm transition">
-                        ✕
-                    </a>
-                @endif
-            </div>
-            <button type="submit" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition duration-150 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm">
-                Buscar
-            </button>
-        </form>
-
-        @if(!empty($searchTerm))
-            <div class="text-xs text-slate-400 font-mono px-3 whitespace-nowrap border-l border-slate-100 hidden sm:inline">
-                {{ $searchResults->total() }} resultado(s)
-            </div>
-        @endif
-    </div>
-
     @if(!empty($searchTerm))
-        <div class="flex items-center justify-between mb-6 pb-2 border-b border-slate-100">
-            <h2 class="text-lg font-bold text-slate-800">Resultados para: <span class="text-emerald-600">"{{ $searchTerm }}"</span></h2>
-            <a href="{{ route('home') }}" class="text-xs font-semibold text-slate-500 hover:text-slate-800 transition">Limpar busca</a>
+        <div class="mb-8 pb-4 border-b border-slate-100 flex items-center justify-between">
+            <h2 class="text-xl font-bold text-slate-900">
+                Resultados para: <span class="text-[#b91c1c]">"{{ $searchTerm }}"</span>
+            </h2>
+            <a href="{{ route('home') }}" class="text-sm font-medium text-slate-500 hover:text-slate-950 transition">
+                Limpar busca
+            </a>
         </div>
 
         @if($searchResults->isEmpty())
-            <div class="bg-white p-16 rounded-xl shadow-sm text-center border border-slate-100 text-slate-500 text-sm">
-                Nenhum livro encontrado em todo o acervo com o termo solicitado.
+            <div class="bg-white p-16 rounded-2xl shadow-sm text-center border border-slate-100 text-slate-500 text-sm">
+                Nenhum livro encontrado em todo o acervo com esse termo.
             </div>
         @else
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                 @foreach($searchResults as $book)
                     <x-book-card :book="$book" />
                 @endforeach
             </div>
-            <div class="mt-10">
+
+            <div class="mt-12">
                 {{ $searchResults->links('pagination::simple-tailwind') }}
             </div>
         @endif
 
-    @else
+    @elseif(!empty($categoriesWithBooks))
         <div class="space-y-12">
             @foreach($categoriesWithBooks as $category)
-                <div class="bg-white p-6 rounded-xl border border-slate-100/80 shadow-xs">
-
-                    <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-50">
-                        <div class="flex items-center gap-2">
-                            <div class="w-1.5 h-5 bg-emerald-500 rounded-full"></div>
-                            <h2 class="text-lg font-bold text-slate-800 capitalize tracking-tight">
-                                {{ $category->name }}
-                            </h2>
-                        </div>
-                        <a href="{{ route('categories.books.index', $category->id) }}" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100/80 px-2.5 py-1 rounded-md transition duration-150">
-                            Ver todos →
+                <section>
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <h2 class="text-2xl font-black text-slate-950 tracking-tighter flex items-center">
+                            <span class="capitalize">{{ $category->name }}</span><span class="text-[#b91c1c]">.</span>
+                        </h2>
+                        <a href="{{ route('categories.books.index', $category->id) }}"
+                           class="text-sm font-semibold text-[#b91c1c] hover:underline underline-offset-4 transition">
+                            Ver tudo →
                         </a>
                     </div>
 
-                    <div class="flex gap-5 overflow-x-auto pb-2 pt-1 snap-x no-scrollbar scroll-smooth" style="scrollbar-width: thin;">
-                        @foreach($category->books as $book)
-                            <div class="w-[290px] sm:w-[310px] flex-shrink-0 snap-start">
+                    <div class="flex gap-6 overflow-x-auto pb-5 pt-2 px-2 snap-x snap-mandatory scroll-smooth custom-scrollbar">
+                        @foreach($category->books->take(9) as $book)
+                            <div class="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 snap-start">
                                 <x-book-card :book="$book" />
                             </div>
                         @endforeach
                     </div>
-
-                </div>
+                </section>
             @endforeach
-        </div>
-    @endif
 
+                @if(method_exists($categoriesWithBooks, 'hasPages') && $categoriesWithBooks->hasPages())
+                    <div class="mt-16 pt-6 border-t border-slate-100">
+                        {{ $categoriesWithBooks->links('pagination::simple-tailwind') }}
+                    </div>
+                @endif
+        </div>
+
+        <style>
+            .custom-scrollbar::-webkit-scrollbar {
+                height: 10px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 10px;
+                transition: background 0.2s ease;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #b91c1c;
+                cursor: grabbing;
+            }
+        </style>
+    @endif
 </x-layout>

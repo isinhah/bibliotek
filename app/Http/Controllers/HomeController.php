@@ -21,7 +21,11 @@ class HomeController extends Controller
             $searchResults = $this->homeService->searchBooks($searchTerm, perPage: 12);
             $searchResults->appends(['search' => $searchTerm]);
 
-            return view('home', compact('searchTerm', 'searchResults'));
+            return view('home', [
+                'searchTerm' => $searchTerm,
+                'searchResults' => $searchResults,
+                'categoriesWithBooks' => null
+            ]);
         }
 
         $categoriesWithBooks = $this->homeService->getCategoriesWithRecentBooks(booksLimit: 10);
