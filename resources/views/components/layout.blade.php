@@ -21,32 +21,55 @@
             </div>
         </div>
 
-        <div class="flex items-center gap-6 text-sm font-medium w-full sm:w-auto justify-center sm:justify-end">
+        <div class="flex items-center gap-2 text-sm font-medium w-full sm:w-auto justify-center sm:justify-end">
             @auth
                 @role('admin')
-                <a href="{{ route('filament.admin.pages.dashboard') }}" class="text-slate-200 hover:text-[#b91c1c] transition-colors duration-200 font-semibold">
-                    Painel (Admin)
+                <a href="{{ route('filament.admin.pages.dashboard') }}"
+                   class="flex items-center gap-1.5 text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors duration-200">
+                    <x-heroicon-o-squares-2x2 class="w-4 h-4"/>
+                    <span>Painel</span>
                 </a>
             @else
-                <a href="{{ route('filament.reader.pages.dashboard') }}" class="text-slate-200 hover:text-[#b91c1c] transition-colors duration-200 font-semibold">
-                    Minha Biblioteca
+                <a href="{{ route('filament.reader.pages.dashboard') }}"
+                   class="flex items-center gap-1.5 text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors duration-200">
+                    <x-heroicon-o-book-open class="w-4 h-4"/>
+                    <span>Minha Biblioteca</span>
+                </a>
+
+                <div class="w-px h-4 bg-slate-700 mx-1"></div>
+
+                <a href="{{ route('filament.reader.resources.reading-lists.index') }}"
+                   title="Lista de Leitura"
+                   class="text-slate-400 hover:text-white transition-colors duration-200 p-1.5 rounded-lg hover:bg-slate-900 flex items-center">
+                    <x-heroicon-o-bookmark class="w-5 h-5"/>
                 </a>
                 @endrole
 
-                <form action="{{ route('logout') }}" method="post" class="m-0">
+                <a href="{{ auth()->user()->hasRole('admin') ? '/admin/profile' : '/reader/profile' }}"
+                   title="Perfil"
+                   class="text-slate-400 hover:text-white transition-colors duration-200 p-1.5 rounded-lg hover:bg-slate-800">
+                    <x-heroicon-o-user class="w-5 h-5"/>
+                </a>
+
+                <form action="{{ route('logout') }}" method="post" class="m-0 flex items-center">
                     @csrf
-                    <button type="submit" class="text-slate-500 hover:text-slate-300 transition text-xs font-semibold uppercase tracking-wider">
-                        Sair
+                    <button type="submit"
+                            title="Sair da Conta"
+                            class="text-slate-400 hover:text-rose-400 transition-colors duration-200 p-1.5 rounded-lg hover:bg-slate-800">
+                        <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5"/>
                     </button>
                 </form>
                 @else
-                    <a href="{{ route('login') }}" class="text-slate-300 hover:text-white transition">Entrar</a>
-                    <a href="{{ route('register') }}" class="bg-[#b91c1c] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#991b1b] transition shadow-md text-xs uppercase tracking-wider">
-                        Criar Conta
+                    <a href="{{ route('login') }}"
+                       class="text-slate-300 hover:text-white transition-colors duration-200 px-3 py-1.5">
+                        Entrar
+                    </a>
+                    <a href="{{ route('register') }}"
+                       class="bg-[#b91c1c] hover:bg-[#991b1b] text-white text-xs font-semibold tracking-wider px-4 py-2 rounded-lg transition-colors duration-200">
+                        Criar conta
                     </a>
                 @endauth
         </div>
-
     </div>
 </nav>
 

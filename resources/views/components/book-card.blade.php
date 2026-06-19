@@ -1,3 +1,4 @@
+@php use App\Services\ReadingListService; @endphp
 @props(['book'])
 
 <div class="group bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl hover:border-slate-200/60 transition-all duration-300 h-full">
@@ -46,12 +47,32 @@
     </div>
 
     <div class="flex items-center justify-between gap-2 mt-auto pt-2 border-t border-slate-50 sm:border-none">
-        <div class="min-w-[50px] text-left">
+        <div class="min-w-[100px] text-left">
             @auth
                 @if(auth()->user()->hasRole('admin'))
-                    <a href="/admin/books/{{ $book->id }}/edit" class="text-xs text-slate-400 hover:text-slate-900 font-semibold transition-colors duration-150 relative z-10">
-                        Editar
-                    </a>
+                    <div class="h-full flex items-center justify-start py-2">
+                        <a href="/admin/books/{{ $book->id }}/edit" class="text-xs text-slate-400 hover:text-slate-900 font-semibold transition-colors duration-150 relative z-10">
+                            Editar Livro
+                        </a>
+                    </div>
+                @else
+                    @php
+                        $isSaved = app(ReadingListService::class)->isBookSaved($book->id);
+                    @endphp
+
+                    <form action="{{ route('reading-list.toggle', $book->id) }}" method="POST" class="m-0 w-full relative z-10">
+                        @csrf
+                        @if($isSaved)
+                            <x-button variant="secondary" class="!py-2 !px-3 text-xs rounded-xl w-full justify-center !text-emerald-700 !bg-emerald-50/50 hover:!bg-emerald-50 border border-emerald-200/60 shadow-sm transition-all flex items-center gap-1">
+                                <x-heroicon-s-check class="w-3.5 h-3.5" />
+                                <span>Guardado</span>
+                            </x-button>
+                        @else
+                            <x-button variant="secondary" class="!py-2 !px-3 text-xs rounded-xl w-full justify-center !text-slate-700 !bg-slate-100 hover:!bg-slate-200 border border-slate-200/50 shadow-sm transition-all">
+                                Ler mais tarde
+                            </x-button>
+                        @endif
+                    </form>
                 @endif
             @endauth
         </div>

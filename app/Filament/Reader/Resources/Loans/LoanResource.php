@@ -20,12 +20,12 @@ class LoanResource extends Resource
 {
     protected static ?string $model = Loan::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookmark;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookmarkSquare;
 
     protected static ?string $modelLabel = 'Meu Empréstimo';
-    protected static ?string $pluralModelLabel = 'Meus Livros';
+    protected static ?string $pluralModelLabel = 'Empréstimos';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Empréstimos';
+    protected static string|UnitEnum|null $navigationGroup = 'Minha Conta';
 
     public static function getEloquentQuery(): Builder
     {

@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Dashboard;
 use App\Filament\Reader\Widgets\ReaderStatsWidget;
 use App\Filament\Reader\Widgets\ReaderWelcomeWidget;
+use Filament\Auth\Pages\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -27,6 +28,7 @@ class ReaderPanelProvider extends PanelProvider
         return $panel
             ->id('reader')
             ->path('reader')
+            ->profile(EditProfile::class)
             ->brandName('Bibliotek')
             ->colors([
                 'primary' => [

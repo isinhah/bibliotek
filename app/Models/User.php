@@ -39,6 +39,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Loan::class);
     }
 
+    public function readingList()
+    {
+        return $this->belongsToMany(Book::class, 'book_user_reading_list')->withTimestamps();
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {

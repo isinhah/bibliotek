@@ -32,4 +32,9 @@ class Book extends Model
     public function loans(): HasMany {
         return $this->hasMany(Loan::class);
     }
+
+    public function usersWhoSaved()
+    {
+        return $this->belongsToMany(User::class, 'book_user_reading_list')->withTimestamps();
+    }
 }

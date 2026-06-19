@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\ReadingListController;
 use App\Http\Controllers\UserLoanController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,6 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middle
 
 // LEITOR AUTENTICADO
 Route::middleware(['auth'])->group(function () {
-    Route::get('my-loans', [UserLoanController::class, 'index'])->name('loans.index');
     Route::post('/books/{book}/loan', [LoanController::class, 'store'])->name('loans.store');
+    Route::post('/reading-list/toggle/{book}', [ReadingListController::class, 'toggle'])->name('reading-list.toggle');
 });

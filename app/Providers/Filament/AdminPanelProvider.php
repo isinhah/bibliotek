@@ -6,6 +6,7 @@ use App\Filament\Admin\Widgets\AdminStatsWidget;
 use App\Filament\Admin\Widgets\LoansByCategoryChart;
 use App\Filament\Admin\Widgets\MostRequestedBooksChart;
 use App\Filament\Dashboard;
+use Filament\Auth\Pages\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -30,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->profile(EditProfile::class)
             ->brandName('Bibliotek')
             ->colors([
                 'primary' => [
