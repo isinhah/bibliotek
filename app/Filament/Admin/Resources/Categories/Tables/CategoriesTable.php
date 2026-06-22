@@ -67,6 +67,7 @@ class CategoriesTable
                     ->modalHeading('Excluir Categoria')
                     ->modalDescription('Tem certeza que deseja excluir a categoria?')
                     ->visible(fn ($record) => !$record->trashed())
+                    ->successNotification(null)
                     ->action(function ($record, $action) {
                         try {
                             app(CategoryService::class)->delete($record->id);

@@ -93,6 +93,7 @@ class AuthorsTable
                     ->modalHeading('Excluir Autor')
                     ->modalDescription('Tem certeza que deseja excluir o autor?')
                     ->visible(fn ($record) => !$record->trashed())
+                    ->successNotification(null)
                     ->action(function ($record, $action) {
                         try {
                             app(AuthorService::class)->delete($record->id);

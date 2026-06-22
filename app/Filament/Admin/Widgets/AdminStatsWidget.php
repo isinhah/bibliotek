@@ -29,10 +29,10 @@ class AdminStatsWidget extends StatsOverviewWidget
                 ->icon('heroicon-m-book-open')
                 ->color('success'),
 
-            Stat::make('Leitores', User::role('user')->count())
-                ->description('Usuários ativos')
+            Stat::make('Leitores', User::count())
+                ->description('Usuários cadastrados')
                 ->icon('heroicon-m-users')
-                ->color('primary'),
+                ->color('success'),
         ];
     }
 }

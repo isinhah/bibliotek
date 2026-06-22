@@ -100,6 +100,7 @@ class BooksTable
                     ->modalHeading('Excluir Livro')
                     ->modalDescription('Tem certeza que deseja excluir o livro?')
                     ->visible(fn ($record) => !$record->trashed())
+                    ->successNotification(null)
                     ->action(function ($record, $action) {
                         try {
                             app(BookService::class)->delete($record->id);

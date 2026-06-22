@@ -14,9 +14,9 @@ class RoleAndUserSeeder extends Seeder
         $userRole = Role::firstOrCreate(['name' => 'user']);
 
         $admin = User::firstOrCreate(
-            ['email' => 'admin@gmail.com'],
+            ['email' => 'admin@admin.com'],
             [
-                'name' => 'admin',
+                'name' => 'Administrador',
                 'password' => bcrypt('123456'),
             ]
         );
@@ -24,9 +24,9 @@ class RoleAndUserSeeder extends Seeder
         $admin->assignRole($adminRole);
 
         $user = User::firstOrCreate(
-            ['email' => 'isabel@gmail.com'],
+            ['email' => 'leitor@leitor.com'],
             [
-                'name' => 'isabel',
+                'name' => 'Leitor',
                 'password' => bcrypt('123456'),
             ]
         );
