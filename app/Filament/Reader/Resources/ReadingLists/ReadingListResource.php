@@ -11,7 +11,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,9 +57,6 @@ class ReadingListResource extends Resource
     $query->whereHas('usersWhoSaved', fn ($q) => $q->where('user_id', auth()->id()))
     )
         ->columns([
-            ImageColumn::make('cover_id')
-                ->label('Capa'),
-
             TextColumn::make('title')
                 ->label('Título')
                 ->searchable()
@@ -71,7 +67,7 @@ class ReadingListResource extends Resource
         ])
         ->actions([
                 Action::make('remove')
-                    ->label('Remover')
+                    ->label('Remover da Lista')
                     ->color('danger')
                     ->icon('heroicon-o-trash')
                     ->requiresConfirmation()
