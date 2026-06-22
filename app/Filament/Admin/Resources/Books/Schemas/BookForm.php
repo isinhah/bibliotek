@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\Books\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -15,6 +16,14 @@ class BookForm
             ->components([
                 Section::make('Informações do Livro')
                     ->schema([
+                        FileUpload::make('cover_id')
+                            ->label('Capa do Livro')
+                            ->image()
+                            ->directory('covers')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->placeholder('Clique ou arraste uma nova capa para o livro'),
+
                         TextInput::make('title')
                             ->label('Título do Livro')
                             ->placeholder('Ex: O Senhor dos Anéis, Dom Casmurro')
@@ -43,7 +52,7 @@ class BookForm
                         Select::make('author_id')
                             ->label('Autor')
                             ->relationship(
-                                name: 'author', // nome do método na classe Book que chama o Author
+                                name: 'author',
                                 titleAttribute: 'name'
                             )
                             ->searchable()

@@ -9,6 +9,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Notifications\Notification;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -24,6 +25,10 @@ class BooksTable
                 ->label('ID')
                 ->sortable()
                 ->searchable(),
+
+                ImageColumn::make('cover_id')
+                    ->label('Capa')
+                    ->defaultImageUrl(fn ($record) => 'https://covers.openlibrary.org/b/id/' . $record->cover_id . '-M.jpg'),
 
                 TextColumn::make('title')
                 ->label('Título do Livro')

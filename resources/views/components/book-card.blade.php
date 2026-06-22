@@ -7,9 +7,15 @@
 
         <div class="w-28 h-40 bg-slate-50 flex-shrink-0 rounded-xl overflow-hidden shadow-sm border border-slate-100 relative mx-auto sm:mx-0">
             @if($book->cover_id)
-                <img src="https://covers.openlibrary.org/b/id/{{ $book->cover_id }}-M.jpg"
-                     alt="Capa do livro {{ $book->title }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                @if(filter_var($book->cover_id, FILTER_VALIDATE_INT) || is_numeric($book->cover_id))
+                    <img src="https://covers.openlibrary.org/b/id/{{ $book->cover_id }}-M.jpg"
+                         alt="Capa do livro {{ $book->title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                @else
+                    <img src="{{ Storage::url($book->cover_id) }}"
+                         alt="Capa do livro {{ $book->title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                @endif
             @else
                 <div class="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-slate-400 p-2 text-center">
                     <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400">Sem Capa</span>
