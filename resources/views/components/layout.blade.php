@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title }}</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans text-gray-900 antialiased min-h-screen flex flex-col">
@@ -12,7 +13,7 @@
         <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
 
             <div class="flex items-center gap-8 w-full sm:w-auto">
-                <a href="/" class="text-xl font-bold tracking-tight text-white transition duration-200">
+                <a href="/" class="text-2xl sm:text-3xl font-bold tracking-tight text-white transition duration-200">
                     Bibliotek<span class="text-[#b91c1c]">.</span>
                 </a>
                 <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
