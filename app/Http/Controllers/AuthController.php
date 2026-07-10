@@ -7,7 +7,8 @@ use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AuthController extends Controller
 {
@@ -18,9 +19,9 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function showLogin(): View
+    public function showLogin(): Response
     {
-        return view('auth.login');
+        return Inertia::render('Auth/Login');
     }
 
     public function login(LoginRequest $request): RedirectResponse
@@ -32,13 +33,13 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return back()
                 ->withErrors(['email' => $e->getMessage()])
-                ->onlyInput('email');
+                ->withInput();
         }
     }
 
-    public function showRegister(): View
+    public function showRegister(): Response
     {
-        return view('auth.register');
+        return Inertia::render('Auth/Register');
     }
 
     public function register(RegisterRequest $request): RedirectResponse
@@ -50,7 +51,11 @@ class AuthController extends Controller
                 ->with('success', 'Cadastro realizado com sucesso!');
         } catch (Exception $e) {
             return back()
-                ->withErrors(['email' => 'Não foi possível realizar o cadastro. Tente novamente.', 'error_detail' => $e->getMessage()]);
+                ->withErrors([
+                    'email' => 'Não foi possível realizar o cadastro. Tente novamente.',
+                    'error_detail' => $e->getMessage()
+                ])
+                ->withInput();
         }
     }
 

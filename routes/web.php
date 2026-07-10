@@ -7,7 +7,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\ReadingListController;
-use App\Http\Controllers\UserLoanController;
 use Illuminate\Support\Facades\Route;
 
 // CATALOGO
