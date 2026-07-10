@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libzip-dev \
-    libicu-dev
+    libicu-dev \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
