@@ -1,4 +1,4 @@
-import { useForm, usePage, Link } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import Button from './Button';
 
 export default function BookCard({ book, isSaved }) {
@@ -90,7 +90,6 @@ export default function BookCard({ book, isSaved }) {
                     )}
                 </div>
             </div>
-
         </div>
     );
 }

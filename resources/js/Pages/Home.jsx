@@ -4,9 +4,6 @@ import Alert from '../Components/Alert';
 import BookCard from '../Components/BookCard';
 
 export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [] }) {
-    const { auth } = usePage().props || {};
-    const isAdmin = auth?.user?.role === 'admin';
-
     const { data, setData, get } = useForm({
         search: searchTerm || ''
     });
@@ -49,7 +46,6 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
             <Alert />
 
             <div className="container mx-auto px-4 py-12">
-
                 {searchResults ? (
                     <div>
                         <div className="flex justify-between items-baseline mb-6 border-b border-slate-100 pb-3">
@@ -71,16 +67,6 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                             book={book}
                                             isSaved={savedBookIds.includes(book.id)}
                                         />
-                                        {isAdmin && (
-                                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                                                <a
-                                                    href={`/admin/books/${book.id}/edit`}
-                                                    className="bg-white/90 backdrop-blur-xs text-slate-700 hover:text-[#b91c1c] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm border border-slate-200/60 block"
-                                                >
-                                                    Editar Estoque
-                                                </a>
-                                            </div>
-                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -102,6 +88,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                 </Link>
                             </div>
 
+                            {/* Carrossel Horizontal */}
                             <div className="flex gap-6 overflow-x-auto pb-4 px-2 snap-x snap-mandatory scroll-smooth custom-scrollbar">
                                 {category.books && category.books.map(book => (
                                     <div key={book.id} className="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 snap-start relative group">
@@ -109,16 +96,6 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                             book={book}
                                             isSaved={savedBookIds.includes(book.id)}
                                         />
-                                        {isAdmin && (
-                                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                                                <a
-                                                    href={`/admin/books/${book.id}/edit`}
-                                                    className="bg-white/90 backdrop-blur-xs text-slate-700 hover:text-[#b91c1c] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm border border-slate-200/60 block"
-                                                >
-                                                    Editar Estoque
-                                                </a>
-                                            </div>
-                                        )}
                                     </div>
                                 ))}
                             </div>

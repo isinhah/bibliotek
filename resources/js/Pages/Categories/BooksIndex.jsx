@@ -4,9 +4,6 @@ import Alert from '../../Components/Alert';
 import BookCard from '../../Components/BookCard';
 
 export default function BooksIndex({ category, books, searchTerm, savedBookIds = [] }) {
-    const { auth } = usePage().props || {};
-    const isAdmin = auth?.user?.role === 'admin';
-
     const { data, setData, get } = useForm({
         search: searchTerm || ''
     });
@@ -67,7 +64,7 @@ export default function BooksIndex({ category, books, searchTerm, savedBookIds =
                     )}
 
                     <button type="submit" className="absolute right-4 top-3.5 text-slate-400 hover:text-[#b91c1c] transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                     </button>
@@ -92,17 +89,6 @@ export default function BooksIndex({ category, books, searchTerm, savedBookIds =
                                 book={book}
                                 isSaved={savedBookIds.includes(book.id)}
                             />
-
-                            {isAdmin && (
-                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                                    <a
-                                        href={`/admin/books/${book.id}/edit`}
-                                        className="bg-white/90 backdrop-blur-xs text-slate-700 hover:text-[#b91c1c] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm border border-slate-200/60 block"
-                                    >
-                                        Estoque
-                                    </a>
-                                </div>
-                            )}
                         </div>
                     ))}
                 </div>
