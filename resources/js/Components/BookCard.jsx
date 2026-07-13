@@ -1,8 +1,9 @@
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage, Link } from '@inertiajs/react';
 import Button from './Button';
 
 export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
     const { auth } = usePage().props || {};
+    const isAuthenticated = !!auth?.user;
     const isAdmin = auth?.user?.role === 'admin';
 
     const readingListForm = useForm();
@@ -64,46 +65,58 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-50 mt-auto">
 
                 <div className="relative z-10 w-full sm:w-auto">
-                    {auth?.user && !isAdmin && (
-                        <form onSubmit={handleToggleReadingList} className="m-0">
-                            {isSaved ? (
-                                <Button type="submit" disabled={readingListForm.processing} variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-emerald-700 !bg-emerald-50 border border-emerald-200/60">
-                                    <span>Guardado</span>
+                    {!isAdmin && (
+                        isAuthenticated ? (
+                            <form onSubmit={handleToggleReadingList} className="m-0">
+                                <Button type="submit" disabled={readingListForm.processing} variant="secondary" className={`!py-2 !px-3 text-xs rounded-xl w-full ${isSaved ? '!text-emerald-700 !bg-emerald-50 border border-emerald-200/60' : '!text-slate-700 !bg-slate-100 border border-slate-200/50'}`}>
+                                    {isSaved ? 'Guardado' : 'Ler mais tarde'}
                                 </Button>
-                            ) : (
-                                <Button type="submit" disabled={readingListForm.processing} variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-slate-700 !bg-slate-100 border border-slate-200/50">
-                                    Ler mais tarde
-                                </Button>
-                            )}
-                        </form>
+                            </form>
+                        ) : (
+                            <Link href="/login" className="font-medium shadow-sm transition duration-200 focus:outline-none flex items-center justify-center !py-2 !px-3 text-xs rounded-xl w-full text-slate-700 bg-slate-100 border border-slate-200/50 hover:bg-slate-200">
+                                Ler mais tarde
+                            </Link>
+                        )
                     )}
                 </div>
 
                 <div className="relative z-10 w-full sm:w-auto text-right">
-                    {auth?.user && (
-                        <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
-                            <Button
-                                type="submit"
-                                variant={hasActiveLoan ? "secondary" : "primary"}
-                                disabled={isLoanButtonDisabled}
-                                className={`!py-2 !px-4 text-xs rounded-xl w-full sm:w-auto transition-all ${
-                                    hasActiveLoan
-                                        ? '!text-slate-400 !bg-slate-100 border border-slate-200/40 cursor-not-allowed'
-                                        : ''
-                                }`}
-                            >
-                                {loanForm.processing ? (
-                                    'Processando...'
-                                ) : hasActiveLoan ? (
-                                    'Emprestado'
-                                ) : book.stock > 0 ? (
-                                    'Empréstimo'
-                                ) : (
-                                    'Esgotado'
-                                )}
-                            </Button>
-                        </form>
-                    )}
+                    {!isAdmin && (
+                        isAuthenticated ? (
+                            <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
+                                <Button
+                                    type="submit"
+                                    variant={hasActiveLoan ? "secondary" : "primary"}
+                                    disabled={isLoanButtonDisabled}
+                                    className={`!py-2 !px-4 text-xs rounded-xl w-full sm:w-auto transition-all ${
+                                        hasActiveLoan
+                                            ? '!text-slate-400 !bg-slate-100 border border-slate-200/40 cursor-not-allowed'
+                                            : ''
+                                    }`}
+                                >
+                                    {loanForm.processing ? (
+                                        'Processando...'
+                                    ) : hasActiveLoan ? (
+                                        'Emprestado'
+                                    ) : book.stock > 0 ? (
+                                        'Empréstimo'
+                                    ) : (
+                                        'Esgotado'
+                                    )}
+                                </Button>
+                            </form>
+                        ) : (
+                            book.stock > 0 ? (
+                                <Link href="/login" className="font-medium shadow-sm transition duration-200 focus:outline-none flex items-center justify-center bg-slate-950 hover:bg-[#b91c1c] text-white !py-2 !px-4 text-xs rounded-xl w-full sm:w-auto">
+                                    Empréstimo
+                                </Link>
+                            ) : (
+                                <button disabled className="inline-flex items-center justify-center bg-slate-100 text-slate-400 font-medium py-2 px-4 rounded-xl text-xs cursor-not-allowed w-full sm:w-auto">
+                                    Esgotado
+                                </button>
+                            )
+                            )
+                        )}
                 </div>
             </div>
 
