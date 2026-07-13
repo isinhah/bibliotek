@@ -18,22 +18,15 @@ class HomeController extends Controller
     {
         $searchTerm = $request->query('search');
 
-        if (!empty($searchTerm)) {
-            $searchResults = $this->homeService->searchBooks($searchTerm, perPage: 12);
-            $searchResults->appends(['search' => $searchTerm]);
-
-            return Inertia::render('Home', [
-                'searchTerm' => $searchTerm,
-                'searchResults' => $searchResults,
-                'categoriesWithBooks' => null
-            ]);
-        }
-
-        $categoriesWithBooks = $this->homeService->getCategoriesWithRecentBooks(booksLimit: 10);
+        $data = !empty($searchTerm)
+            ? $this->homeService->searchBooks($searchTerm, perPage: 12)
+            : $this->homeService->getCategoriesWithRecentBooks(booksLimit: 10);
 
         return Inertia::render('Home', [
-            'categoriesWithBooks' => $categoriesWithBooks,
-            'searchTerm' => $searchTerm
+            'searchTerm'          => $searchTerm,
+            'searchResults'       => !empty($searchTerm) ? $data : null,
+            'categoriesWithBooks' => empty($searchTerm) ? $data : null,
+            'savedBookIds'        => auth()->check() ? auth()->user()->readingList()->pluck('books.id')->toArray() : [],
         ]);
     }
 }

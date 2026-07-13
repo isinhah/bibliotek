@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class HomeService
 {
@@ -19,9 +18,10 @@ class HomeService
 
     public function getCategoriesWithRecentBooks(int $booksLimit)
     {
-        return Category::has('books')
-            ->with(['books' => function ($query) use ($booksLimit) {
+        return Category::whereHas('books')
+        ->with(['books' => function ($query) use ($booksLimit) {
             $query->with('author')->latest()->take($booksLimit);
-        }])->paginate(4);
+        }])
+            ->get();
     }
 }
