@@ -28,11 +28,16 @@ class BookController extends Controller
         $books = $this->bookService->listByCategory($category, $searchTerm, perPage: 12);
         $books->appends(['search' => $searchTerm]);
 
+        $loanedBookIds = auth()->check()
+            ? auth()->user()->loans()->whereIn('status', ['PENDING', 'ACTIVE', 'OVERDUE'])->pluck('book_id')->toArray()
+            : [];
+
         return Inertia::render('Categories/BooksIndex', [
             'category' => $category,
             'books' => $books,
             'searchTerm' => $searchTerm,
             'savedBookIds' => auth()->check() ? auth()->user()->readingList()->pluck('books.id')->toArray() : [],
+            'loanedBookIds' => $loanedBookIds,
         ]);
     }
 

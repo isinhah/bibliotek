@@ -1,9 +1,8 @@
-import { useForm, usePage, Link } from '@inertiajs/react';
+import { useForm, Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
-import Alert from '../../Components/Alert';
 import BookCard from '../../Components/BookCard';
 
-export default function BooksIndex({ category, books, searchTerm, savedBookIds = [] }) {
+export default function BooksIndex({ category, books, searchTerm, savedBookIds = [] , loanedBookIds = [] }) {
     const { data, setData, get } = useForm({
         search: searchTerm || ''
     });
@@ -20,10 +19,6 @@ export default function BooksIndex({ category, books, searchTerm, savedBookIds =
 
     return (
         <>
-            <div className="mb-6">
-                <Alert />
-            </div>
-
             <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 pb-6 border-b border-slate-100">
                 <div>
                     <Link
@@ -88,6 +83,7 @@ export default function BooksIndex({ category, books, searchTerm, savedBookIds =
                             <BookCard
                                 book={book}
                                 isSaved={savedBookIds.includes(book.id)}
+                                hasActiveLoan={loanedBookIds.includes(book.id)}
                             />
                         </div>
                     ))}

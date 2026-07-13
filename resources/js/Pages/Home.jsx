@@ -1,8 +1,8 @@
-import {Link, useForm} from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
 import BookCard from '../Components/BookCard';
 
-export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [] }) {
+export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [], loanedBookIds = [] }) {
     const { data, setData, get } = useForm({
         search: searchTerm || ''
     });
@@ -63,6 +63,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                         <BookCard
                                             book={book}
                                             isSaved={savedBookIds.includes(book.id)}
+                                            hasActiveLoan={loanedBookIds.includes(book.id)}
                                         />
                                     </div>
                                 ))}
@@ -85,13 +86,13 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                 </Link>
                             </div>
 
-                            {/* Carrossel Horizontal */}
                             <div className="flex gap-6 overflow-x-auto pb-4 px-2 snap-x snap-mandatory scroll-smooth custom-scrollbar">
                                 {category.books && category.books.map(book => (
                                     <div key={book.id} className="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 snap-start relative group">
                                         <BookCard
                                             book={book}
                                             isSaved={savedBookIds.includes(book.id)}
+                                            hasActiveLoan={loanedBookIds.includes(book.id)}
                                         />
                                     </div>
                                 ))}

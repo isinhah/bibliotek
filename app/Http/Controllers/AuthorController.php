@@ -53,10 +53,15 @@ class AuthorController extends Controller
 
     public function books(Author $author): Response
     {
+        $loanedBookIds = auth()->check()
+            ? auth()->user()->loans()->whereIn('status', ['PENDING', 'ACTIVE', 'OVERDUE'])->pluck('book_id')->toArray()
+            : [];
+
         return Inertia::render('Authors/Books', [
             'author' => $author,
             'books' => $author->books()->with('author')->get(),
             'savedBookIds' => auth()->check() ? auth()->user()->readingList()->pluck('books.id')->toArray() : [],
+            'loanedBookIds' => $loanedBookIds,
         ]);
     }
 

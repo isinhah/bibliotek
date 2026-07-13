@@ -1,15 +1,10 @@
 import { Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
-import Alert from '../../Components/Alert';
 import BookCard from '../../Components/BookCard';
 
-export default function Books({ author, books, savedBookIds = [] }) {
+export default function Books({ author, books, savedBookIds = [], loanedBookIds = [] }) {
     return (
         <>
-            <div className="mb-6">
-                <Alert />
-            </div>
-
             <header className="mb-12 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-6 border-b border-slate-100">
                 <div>
                     <Link
@@ -36,11 +31,13 @@ export default function Books({ author, books, savedBookIds = [] }) {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {books.map(book => (
-                        <BookCard
-                            key={book.id}
-                            book={book}
-                            isSaved={savedBookIds.includes(book.id)}
-                        />
+                        <div key={book.id} className="relative group">
+                            <BookCard
+                                book={book}
+                                isSaved={savedBookIds.includes(book.id)}
+                                hasActiveLoan={loanedBookIds.includes(book.id)}
+                            />
+                        </div>
                     ))}
                 </div>
             )}

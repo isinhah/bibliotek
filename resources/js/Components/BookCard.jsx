@@ -1,7 +1,7 @@
 import { useForm, usePage } from '@inertiajs/react';
 import Button from './Button';
 
-export default function BookCard({ book, isSaved }) {
+export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
     const { auth } = usePage().props || {};
     const isAdmin = auth?.user?.role === 'admin';
 
@@ -15,7 +15,9 @@ export default function BookCard({ book, isSaved }) {
 
     const handleLoan = (e) => {
         e.preventDefault();
-        loanForm.post(`/books/${book.id}/loan`, { preserveScroll: true });
+        if (book.stock > 0 && !hasActiveLoan) {
+            loanForm.post(`/books/${book.id}/loan`, { preserveScroll: true });
+        }
     };
 
     const coverUrl = book.cover_id
@@ -23,6 +25,8 @@ export default function BookCard({ book, isSaved }) {
             ? `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
             : `/storage/${book.cover_id}`)
         : null;
+
+    const isLoanButtonDisabled = loanForm.processing || hasActiveLoan || book.stock <= 0;
 
     return (
         <div className="group bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl hover:border-slate-200/60 transition-all duration-300 h-full relative">
@@ -58,15 +62,16 @@ export default function BookCard({ book, isSaved }) {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-50 mt-auto">
+
                 <div className="relative z-10 w-full sm:w-auto">
                     {auth?.user && !isAdmin && (
                         <form onSubmit={handleToggleReadingList} className="m-0">
                             {isSaved ? (
-                                <Button type="submit" variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-emerald-700 !bg-emerald-50 border border-emerald-200/60">
+                                <Button type="submit" disabled={readingListForm.processing} variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-emerald-700 !bg-emerald-50 border border-emerald-200/60">
                                     <span>Guardado</span>
                                 </Button>
                             ) : (
-                                <Button type="submit" variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-slate-700 !bg-slate-100 border border-slate-200/50">
+                                <Button type="submit" disabled={readingListForm.processing} variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-slate-700 !bg-slate-100 border border-slate-200/50">
                                     Ler mais tarde
                                 </Button>
                             )}
@@ -76,20 +81,32 @@ export default function BookCard({ book, isSaved }) {
 
                 <div className="relative z-10 w-full sm:w-auto text-right">
                     {auth?.user && (
-                        book.stock > 0 ? (
-                            <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
-                                <Button type="submit" variant="primary" className="!py-2 !px-4 text-xs rounded-xl w-full sm:w-auto">
-                                    Empréstimo
-                                </Button>
-                            </form>
-                        ) : (
-                            <button disabled className="inline-flex items-center justify-center bg-slate-100 text-slate-400 font-medium py-2 px-4 rounded-xl text-xs cursor-not-allowed w-full sm:w-auto">
-                                Esgotado
-                            </button>
-                        )
+                        <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
+                            <Button
+                                type="submit"
+                                variant={hasActiveLoan ? "secondary" : "primary"}
+                                disabled={isLoanButtonDisabled}
+                                className={`!py-2 !px-4 text-xs rounded-xl w-full sm:w-auto transition-all ${
+                                    hasActiveLoan
+                                        ? '!text-slate-400 !bg-slate-100 border border-slate-200/40 cursor-not-allowed'
+                                        : ''
+                                }`}
+                            >
+                                {loanForm.processing ? (
+                                    'Processando...'
+                                ) : hasActiveLoan ? (
+                                    'Emprestado'
+                                ) : book.stock > 0 ? (
+                                    'Empréstimo'
+                                ) : (
+                                    'Esgotado'
+                                )}
+                            </Button>
+                        </form>
                     )}
                 </div>
             </div>
+
         </div>
     );
 }
