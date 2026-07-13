@@ -7,6 +7,8 @@ use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class CategoryController extends Controller
 {
@@ -22,11 +24,13 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-    public function indexPublic(): View
+    public function indexPublic(): Response
     {
         $categories = $this->categoryService->listForCatalog();
 
-        return view('categories.index', compact('categories'));
+        return Inertia::render('Categories/Index', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(CategoryRequest $request): RedirectResponse

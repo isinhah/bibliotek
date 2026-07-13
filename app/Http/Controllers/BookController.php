@@ -12,13 +12,15 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class BookController extends Controller
 {
 
     public function __construct(protected BookService $bookService){}
 
-    public function index(Request $request, int $categoryId): View
+    public function index(Request $request, int $categoryId): Response
     {
         $category = Category::findOrFail($categoryId);
         $searchTerm = $request->query('search');
@@ -26,7 +28,12 @@ class BookController extends Controller
         $books = $this->bookService->listByCategory($category, $searchTerm, perPage: 12);
         $books->appends(['search' => $searchTerm]);
 
-        return view('books.index', compact('category', 'books', 'searchTerm'));
+        return Inertia::render('Categories/BooksIndex', [
+            'category' => $category,
+            'books' => $books,
+            'searchTerm' => $searchTerm,
+            'savedBookIds' => auth()->check() ? auth()->user()->readingList()->pluck('books.id')->toArray() : [],
+        ]);
     }
 
     public function indexAdmin(Request $request): View

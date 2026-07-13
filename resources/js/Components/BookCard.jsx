@@ -1,11 +1,11 @@
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage, Link } from '@inertiajs/react';
 import Button from './Button';
 
 export default function BookCard({ book, isSaved }) {
-    const { auth } = usePage().props;
+    const { auth } = usePage().props || {};
+    const isAdmin = auth?.user?.role === 'admin';
 
     const readingListForm = useForm();
-
     const loanForm = useForm();
 
     const handleToggleReadingList = (e) => {
@@ -25,38 +25,42 @@ export default function BookCard({ book, isSaved }) {
         : null;
 
     return (
-        <div className="group bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl hover:border-slate-200/60 transition-all duration-300 h-full">
+        <div className="group bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:shadow-xl hover:border-slate-200/60 transition-all duration-300 h-full relative">
+
+            {isAdmin && (
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
+                    <a
+                        href={`/admin/books/${book.id}/edit`}
+                        className="bg-white/90 backdrop-blur-xs text-slate-700 hover:text-[#b91c1c] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm border border-slate-200/60 block"
+                    >
+                        Estoque
+                    </a>
+                </div>
+            )}
 
             <div className="flex flex-col sm:flex-row gap-4 mb-5 items-center sm:items-start text-center sm:text-left">
-
-                <div className="w-28 h-40 bg-slate-50 flex-shrink-0 rounded-xl overflow-hidden shadow-sm border border-slate-100 relative mx-auto sm:mx-0">
+                <div className="w-24 h-36 bg-slate-50 rounded-xl overflow-hidden flex-shrink-0 shadow-sm border border-slate-100 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300 relative">
                     {coverUrl ? (
-                        <img src={coverUrl} alt={`Capa do livro ${book.title}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src={coverUrl} className="w-full h-full object-cover select-none" alt={book.title} />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-400 text-xs">Sem Capa</div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Sem Capa</span>
                     )}
                 </div>
 
-                <div className="flex-1 min-w-0">
-                    <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-[#b91c1c] bg-red-50 px-2.5 py-1 rounded-bl-xl rounded-tr-xl mb-2">
-                        {book.category?.name || 'Geral'}
-                    </span>
-                    <h3 className="text-base font-bold text-slate-900 tracking-tight leading-snug hover:text-[#b91c1c] transition-colors duration-150 truncate">
+                <div className="flex-1 min-w-0 py-1">
+                    <h3 className="font-extrabold text-slate-900 group-hover:text-[#b91c1c] transition-colors duration-200 text-base leading-snug tracking-tight mb-1 capitalize line-clamp-2" title={book.title}>
                         {book.title}
                     </h3>
-                    <p className="text-xs font-semibold text-slate-500 mt-0.5 mb-2 truncate">
-                        {book.author?.name || 'Autor Desconhecido'}
-                    </p>
-                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">
-                        {book.description || 'Sem descrição disponível.'}
+                    <p className="text-sm text-slate-500 truncate capitalize font-medium">
+                        {book.author?.name || book.author_name || 'Autor desconhecido'}
                     </p>
                 </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-50 mt-auto">
-                <div className="w-full sm:w-auto">
-                    {auth?.user && (
-                        <form onSubmit={handleToggleReadingList} className="m-0 w-full">
+                <div className="relative z-10 w-full sm:w-auto">
+                    {auth?.user && !isAdmin && (
+                        <form onSubmit={handleToggleReadingList} className="m-0">
                             {isSaved ? (
                                 <Button type="submit" variant="secondary" className="!py-2 !px-3 text-xs rounded-xl w-full !text-emerald-700 !bg-emerald-50 border border-emerald-200/60">
                                     <span>Guardado</span>
@@ -71,16 +75,18 @@ export default function BookCard({ book, isSaved }) {
                 </div>
 
                 <div className="relative z-10 w-full sm:w-auto text-right">
-                    {book.stock > 0 ? (
-                        <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
-                            <Button type="submit" variant="primary" className="!py-2 !px-4 text-xs rounded-xl w-full sm:w-auto">
-                                Empréstimo
-                            </Button>
-                        </form>
-                    ) : (
-                        <button disabled className="inline-flex items-center justify-center bg-slate-100 text-slate-400 font-medium py-2 px-4 rounded-xl text-xs cursor-not-allowed w-full sm:w-auto">
-                            Esgotado
-                        </button>
+                    {auth?.user && (
+                        book.stock > 0 ? (
+                            <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
+                                <Button type="submit" variant="primary" className="!py-2 !px-4 text-xs rounded-xl w-full sm:w-auto">
+                                    Empréstimo
+                                </Button>
+                            </form>
+                        ) : (
+                            <button disabled className="inline-flex items-center justify-center bg-slate-100 text-slate-400 font-medium py-2 px-4 rounded-xl text-xs cursor-not-allowed w-full sm:w-auto">
+                                Esgotado
+                            </button>
+                        )
                     )}
                 </div>
             </div>

@@ -1,9 +1,12 @@
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage, Link } from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
 import Alert from '../Components/Alert';
 import BookCard from '../Components/BookCard';
 
 export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [] }) {
+    const { auth } = usePage().props || {};
+    const isAdmin = auth?.user?.role === 'admin';
+
     const { data, setData, get } = useForm({
         search: searchTerm || ''
     });
@@ -63,11 +66,22 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {searchResults.data && searchResults.data.map(book => (
-                                    <BookCard
-                                        key={book.id}
-                                        book={book}
-                                        isSaved={savedBookIds.includes(book.id)}
-                                    />
+                                    <div key={book.id} className="relative group">
+                                        <BookCard
+                                            book={book}
+                                            isSaved={savedBookIds.includes(book.id)}
+                                        />
+                                        {isAdmin && (
+                                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                                                <a
+                                                    href={`/admin/books/${book.id}/edit`}
+                                                    className="bg-white/90 backdrop-blur-xs text-slate-700 hover:text-[#b91c1c] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm border border-slate-200/60 block"
+                                                >
+                                                    Editar Estoque
+                                                </a>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
                         )}
@@ -78,17 +92,33 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                             <div className="flex justify-between items-baseline mb-6 border-b border-slate-100 pb-3">
                                 <h2 className="text-xl font-extrabold text-slate-950 tracking-tight flex items-center gap-2">
                                     <span className="w-1.5 h-4 rounded-full bg-[#b91c1c]"></span>
-                                    {category.name}
+                                    <span className="capitalize">{category.name}</span>
                                 </h2>
+                                <Link
+                                    href={`/categories/${category.id}/books`}
+                                    className="text-sm font-semibold text-[#b91c1c] hover:underline underline-offset-4 transition"
+                                >
+                                    Ver tudo →
+                                </Link>
                             </div>
 
                             <div className="flex gap-6 overflow-x-auto pb-4 px-2 snap-x snap-mandatory scroll-smooth custom-scrollbar">
                                 {category.books && category.books.map(book => (
-                                    <div key={book.id} className="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 snap-start">
+                                    <div key={book.id} className="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 snap-start relative group">
                                         <BookCard
                                             book={book}
                                             isSaved={savedBookIds.includes(book.id)}
                                         />
+                                        {isAdmin && (
+                                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                                                <a
+                                                    href={`/admin/books/${book.id}/edit`}
+                                                    className="bg-white/90 backdrop-blur-xs text-slate-700 hover:text-[#b91c1c] text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm border border-slate-200/60 block"
+                                                >
+                                                    Editar Estoque
+                                                </a>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </div>

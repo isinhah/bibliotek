@@ -8,7 +8,8 @@ use App\Services\AuthorService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AuthorController extends Controller
 {
@@ -29,7 +30,12 @@ class AuthorController extends Controller
 
         $alphabet = range('A', 'Z');
 
-        return view('authors.index', compact('authors', 'searchTerm', 'alphabet', 'selectedLetter'));
+        return Inertia::render('Authors/Index', [
+            'authors' => $authors,
+            'searchTerm' => $searchTerm,
+            'selectedLetter' => $selectedLetter,
+            'alphabet' => $alphabet,
+        ]);
     }
 
     public function indexAdmin(Request $request)
@@ -45,11 +51,13 @@ class AuthorController extends Controller
         return view('admin.authors.index', compact('authors'));
     }
 
-    public function books(Author $author): View
+    public function books(Author $author): Response
     {
-        $books = $this->authorService->getBooksPaginated($author, perPage: 12);
-
-        return view('authors.books', compact('author', 'books'));
+        return Inertia::render('Authors/Books', [
+            'author' => $author,
+            'books' => $author->books()->with('author')->get(),
+            'savedBookIds' => auth()->check() ? auth()->user()->readingList()->pluck('books.id')->toArray() : [],
+        ]);
     }
 
     public function store(AuthorRequest $request): RedirectResponse
