@@ -1,6 +1,5 @@
-import { useForm, usePage, Link } from '@inertiajs/react';
+import {Link, useForm} from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
-import Alert from '../Components/Alert';
 import BookCard from '../Components/BookCard';
 
 export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [] }) {
@@ -42,8 +41,6 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                     </form>
                 </div>
             </div>
-
-            <Alert />
 
             <div className="container mx-auto px-4 py-12">
                 {searchResults ? (

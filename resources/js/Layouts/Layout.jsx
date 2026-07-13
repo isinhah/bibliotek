@@ -1,4 +1,5 @@
 import { Head, Link, usePage } from '@inertiajs/react'
+import Alert from "../Components/Alert.jsx";
 
 export default function Layout({ children, title, isHome = false }) {
     const { auth } = usePage().props || {}
@@ -84,6 +85,8 @@ export default function Layout({ children, title, isHome = false }) {
                     </div>
                 </div>
             </nav>
+
+            <Alert />
 
             {isHome ? (
                 <>{children}</>
