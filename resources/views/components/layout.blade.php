@@ -39,7 +39,7 @@
 
                     <div class="w-px h-4 bg-slate-700 mx-1"></div>
 
-                    <a href="{{ route('filament.reader.resources.reading-lists.index') }}"
+                    <a href="{{ route('filament.reader.resources.reading-list.index') }}"
                        title="Lista de Leitura"
                        class="text-slate-400 hover:text-white transition-colors duration-200 p-1.5 rounded-lg hover:bg-slate-900 flex items-center">
                         <x-heroicon-o-bookmark class="w-5 h-5"/>

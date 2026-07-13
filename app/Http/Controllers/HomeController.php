@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\HomeService;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
         protected HomeService $homeService
     ) {}
 
-    public function index(Request $request): View
+    public function index(Request $request): Response
     {
         $searchTerm = $request->query('search');
 
@@ -21,7 +22,7 @@ class HomeController extends Controller
             $searchResults = $this->homeService->searchBooks($searchTerm, perPage: 12);
             $searchResults->appends(['search' => $searchTerm]);
 
-            return view('home', [
+            return Inertia::render('Home', [
                 'searchTerm' => $searchTerm,
                 'searchResults' => $searchResults,
                 'categoriesWithBooks' => null
@@ -30,6 +31,9 @@ class HomeController extends Controller
 
         $categoriesWithBooks = $this->homeService->getCategoriesWithRecentBooks(booksLimit: 10);
 
-        return view('home', compact('categoriesWithBooks', 'searchTerm'));
+        return Inertia::render('Home', [
+            'categoriesWithBooks' => $categoriesWithBooks,
+            'searchTerm' => $searchTerm
+        ]);
     }
 }

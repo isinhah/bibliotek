@@ -21,6 +21,8 @@ class ReadingListResource extends Resource
 {
     protected static ?string $model = Book::class;
 
+    protected static ?string $slug = 'reading-list';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookmark;
 
     protected static ?string $modelLabel = 'Livro Salvo';
