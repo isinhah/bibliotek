@@ -12,7 +12,7 @@ services:
       SERVICE_TAGS: dev
     ports:
       - "8000:8000"
-      - "5173:5173"
+      - "5175:5175"
     volumes:
       - .:/var/www
     depends_on:
