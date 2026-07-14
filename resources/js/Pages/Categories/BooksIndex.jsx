@@ -1,6 +1,7 @@
 import { useForm, Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
 import BookCard from '../../Components/BookCard';
+import {Button} from "@/Components/ui/Button.jsx";
 
 export default function BooksIndex({ category, books, searchTerm, savedBookIds = [] , loanedBookIds = [] }) {
     const { data, setData, get } = useForm({
@@ -49,20 +50,20 @@ export default function BooksIndex({ category, books, searchTerm, savedBookIds =
                     />
 
                     {searchTerm && (
-                        <button
+                        <Button
                             type="button"
                             onClick={handleClearSearch}
                             className="absolute right-12 top-3.5 text-slate-400 hover:text-slate-600 text-sm transition"
                         >
                             ✕
-                        </button>
+                        </Button>
                     )}
 
-                    <button type="submit" className="absolute right-4 top-3.5 text-slate-400 hover:text-[#b91c1c] transition-colors">
+                    <Button type="submit" className="absolute right-4 top-3.5 text-slate-400 hover:text-[#b91c1c] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
-                    </button>
+                    </Button>
                 </form>
 
                 {searchTerm && (

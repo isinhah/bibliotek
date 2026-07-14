@@ -133,6 +133,64 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+@theme {
+    /* Fontes */
+    --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+    /* Fundo */
+    --color-page: #F4F1EA;
+    --color-panel: #EBEFEA;
+    --color-panel-alt: #FFFFFF;
+
+    /* Texto */
+    --color-text-primary: #1C332B;
+    --color-text-secondary: #43564D;
+
+    /* Bordas */
+    --color-border: #0D1A15;
+    --color-border-hard: #000000;
+
+    /* Acento madeira */
+    --color-oak: #A87C4F;
+    --color-oak-light: #C9A876;
+
+    /* Botão Primary */
+    --color-primary: #2E4A3F;
+    --color-primary-foreground: #F5F2EB;
+
+    /* Botão Secondary */
+    --color-secondary: #E6DFD3;
+    --color-secondary-foreground: #2E4A3F;
+
+    /* Botão Danger */
+    --color-danger: #C85A4B;
+    --color-danger-foreground: #F5F2EB;
+
+    /* Warning */
+    --color-warning: #B8873D;
+    --color-warning-foreground: #F5F2EB;
+
+    /* Sombra retrô */
+    --shadow-hard: 4px 4px 0px 0px #000000;
+}
+
+.dark {
+    --color-page: #141110;
+    --color-panel: #1E1B18;
+    --color-panel-alt: #252220;
+    --color-text-primary: #EDE7DB;
+    --color-text-secondary: #A6998A;
+    --color-border: #3A342E;
+
+    --color-primary: #3D6653;
+    --color-primary-foreground: #F5F2EB;
+
+    --color-secondary: #2A241E;
+    --color-secondary-foreground: #E6DFD3;
+
+    --color-oak: #C9A876;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

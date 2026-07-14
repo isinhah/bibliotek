@@ -1,5 +1,6 @@
 import { useForm, Link } from '@inertiajs/react'
 import Layout from '../../Layouts/Layout.jsx'
+import {Button} from "@/Components/ui/Button.jsx";
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
@@ -64,7 +65,7 @@ export default function Login() {
                     )}
                 </div>
 
-                <button
+                <Button
                     type="submit"
                     disabled={processing}
                     className={`w-full bg-slate-950 hover:bg-[#b91c1c] text-white font-semibold py-3 rounded-2xl transition duration-200 shadow-sm mb-6 focus:outline-none ${
@@ -72,7 +73,7 @@ export default function Login() {
                     }`}
                 >
                     {processing ? 'Entrando...' : 'Entrar'}
-                </button>
+                </Button>
 
                 <p className="text-center text-sm text-slate-500">
                     Não tem uma conta?

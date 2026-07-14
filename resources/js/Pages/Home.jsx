@@ -1,7 +1,6 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
 import BookCard from '../Components/BookCard';
-import { Button } from "@/Components/ui/button";
 
 export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [], loanedBookIds = [] }) {
     const { data, setData, get } = useForm({
@@ -24,8 +23,6 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                         Explore a bibliotek e encontre sua próxima leitura.
                     </p>
                 </header>
-
-                <Button>CLIQUE AQUI</Button>
 
                 <div className="mt-10 max-w-xl mx-auto px-4">
                     <form onSubmit={handleSearch} className="relative group">
@@ -89,7 +86,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                 </Link>
                             </div>
 
-                            <div className="flex gap-6 overflow-x-auto pb-4 px-2 snap-x snap-mandatory scroll-smooth custom-scrollbar">
+                            <div className="flex gap-6 overflow-x-auto pb-4 px-2 snap-x snap-mandatory scroll-smooth custom-scrollbar p-1">
                                 {category.books && category.books.map(book => (
                                     <div key={book.id} className="w-[280px] sm:w-[320px] md:w-[350px] flex-shrink-0 snap-start relative group">
                                         <BookCard
