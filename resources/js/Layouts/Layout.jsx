@@ -8,7 +8,7 @@ export default function Layout({ children, title, isHome = false }) {
 
     return (
         <>
-            <Head title={title ? `${title} — Bibliotek` : 'Bibliotek'} />
+            <Head title={isHome ? 'Bibliotek' : (title ? `${title} — Bibliotek` : 'Bibliotek')} />
 
             <nav className="bg-slate-950 text-slate-100 border-slate-900 shadow-lg relative z-50">
                 <div className="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
