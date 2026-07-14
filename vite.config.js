@@ -4,6 +4,7 @@ import {bunny} from 'laravel-vite-plugin/fonts';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react'
 import inertia from "@inertiajs/vite";
+import path from "node:path";
 
 export default defineConfig({
     plugins: [
@@ -20,6 +21,11 @@ export default defineConfig({
         inertia(),
         tailwindcss(),
     ],
+    resolve : {
+        alias: {
+            '@': path.resolve(__dirname, './resources/js'),
+        },
+    },
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
@@ -32,4 +38,7 @@ export default defineConfig({
             host: 'localhost',
         },
     },
+    optimizeDeps: {
+        exclude: ['rolldown-runtime']
+    }
 });

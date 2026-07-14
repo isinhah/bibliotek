@@ -1,6 +1,7 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
 import BookCard from '../Components/BookCard';
+import { Button } from "@/Components/ui/button";
 
 export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [], loanedBookIds = [] }) {
     const { data, setData, get } = useForm({
@@ -23,6 +24,8 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                         Explore a bibliotek e encontre sua próxima leitura.
                     </p>
                 </header>
+
+                <Button>CLIQUE AQUI</Button>
 
                 <div className="mt-10 max-w-xl mx-auto px-4">
                     <form onSubmit={handleSearch} className="relative group">
