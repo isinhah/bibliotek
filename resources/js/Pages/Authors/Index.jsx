@@ -1,6 +1,6 @@
 import { useForm, Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
-import {Button} from "@/Components/ui/Button.jsx";
+import { Button } from "@/Components/ui/Button.jsx";
 
 export default function Index({ authors, searchTerm, selectedLetter, alphabet }) {
     const { data, setData, get } = useForm({
@@ -16,7 +16,6 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
     const handleLetterClick = (letter) => {
         const nextLetter = data.letter === letter ? '' : letter;
         setData('letter', nextLetter);
-
         get(`/authors?search=${data.search}&letter=${nextLetter}`, { preserveState: true });
     };
 
@@ -27,97 +26,95 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
 
     return (
         <>
-            <header className="mb-12 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+            <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-6 border-b-2 border-border-hard">
                 <div>
-                    <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tighter">
+                    <h1 className="text-3xl sm:text-4xl font-mono font-black text-text-primary tracking-tight flex items-center gap-3">
+                        <span className="w-2.5 h-8 bg-oak border-2 border-border-hard rounded-xs"></span>
                         Escritores e Autores
                     </h1>
-                    <p className="text-slate-500 mt-2 max-w-xl text-base">
+                    <p className="text-text-secondary mt-2 max-w-xl text-sm font-mono font-semibold">
                         Conheça os escritores e autores disponíveis no nosso acervo.
                     </p>
                 </div>
 
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200/40">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-primary bg-panel border-2 border-border-hard px-3 py-1.5 rounded-xl shadow-hard">
                     Total: {authors.total} autores
                 </span>
             </header>
 
             <div className="mb-14 space-y-6">
-                <div className="max-w-xl">
-                    <form onSubmit={handleSearch} className="relative group m-0">
-                        <input
-                            type="text"
-                            value={data.search}
-                            onChange={e => setData('search', e.target.value)}
-                            placeholder="Pesquisar autor por nome..."
-                            className="w-full pl-6 pr-12 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#b91c1c] focus:border-transparent transition-all placeholder-slate-400 text-sm font-medium"
-                        />
-
-                        {searchTerm && (
-                            <Button
-                                type="button"
-                                onClick={handleClearSearch}
-                                className="absolute right-10 top-3.5 text-slate-400 hover:text-slate-600 text-sm transition"
-                            >
-                                ✕
-                            </Button>
-                        )}
-
-                        <Button type="submit" className="absolute right-4 top-3.5 text-slate-400 hover:text-[#b91c1c] transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                            </svg>
+                <div className="w-full">
+                    <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
+                        <div className="relative flex-1">
+                            <input
+                                type="text"
+                                value={data.search}
+                                onChange={e => setData('search', e.target.value)}
+                                placeholder="Pesquisar autor por nome..."
+                                className="w-full font-mono text-xs font-semibold bg-panel-alt text-text-primary border-2 border-border-hard rounded-xl h-10 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary focus:border-border-hard shadow-hard placeholder:text-text-secondary/50"
+                            />
+                            {data.search && (
+                                <button
+                                    type="button"
+                                    onClick={handleClearSearch}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-danger font-mono font-bold text-xs"
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </div>
+                        <Button type="submit" variant="primary" className="h-10">
+                            Buscar
                         </Button>
                     </form>
-
-                    {searchTerm && (
-                        <div className="text-xs text-slate-400 font-medium mt-2 pl-2">
-                            Encontrado(s) {authors.total} autor(es) para "{searchTerm}"
-                        </div>
-                    )}
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 p-2 bg-slate-100 rounded-2xl border border-slate-200/40">
-                    {alphabet.map(letter => (
-                        <Button
-                            key={letter}
-                            type="button"
-                            onClick={() => handleLetterClick(letter)}
-                            className={`w-8 h-8 flex items-center justify-center text-xs font-bold rounded-xl transition-all ${
-                                data.letter === letter
-                                    ? 'bg-[#b91c1c] text-white shadow-md scale-105'
-                                    : 'text-slate-600 hover:bg-white hover:text-[#b91c1c] shadow-xs'
-                            }`}
-                        >
-                            {letter}
-                        </Button>
-                    ))}
+                <div className="flex flex-wrap gap-2 p-3 bg-panel rounded-xl border-2 border-border-hard shadow-hard">
+                    {alphabet.map(letter => {
+                        const isSelected = data.letter === letter;
+                        return (
+                            <Button
+                                key={letter}
+                                type="button"
+                                onClick={() => handleLetterClick(letter)}
+                                variant={isSelected ? "primary" : "secondary"}
+                                className={`w-9 h-9 p-0 flex items-center justify-center font-mono font-bold text-xs transition-all ${
+                                    isSelected ? 'scale-105 shadow-[2px_2px_0px_0px_#000000]' : ''
+                                }`}
+                            >
+                                {letter}
+                            </Button>
+                        );
+                    })}
                 </div>
             </div>
 
             {authors.data.length === 0 ? (
-                <div className="bg-white p-16 rounded-2xl shadow-sm text-center border border-slate-100 text-slate-500 text-sm font-medium">
-                    Nenhum autor cadastrado com esses critérios.
+                <div className="text-center py-24 bg-panel border-2 border-border-hard rounded-xl shadow-hard max-w-lg mx-auto">
+                    <span className="text-4xl block mb-4">✍️</span>
+                    <p className="text-text-primary font-mono font-bold text-sm">
+                        Nenhum autor cadastrado com esses critérios.
+                    </p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {authors.data.map(author => (
                         <Link
                             key={author.id}
                             href={`/authors/${author.id}/books`}
-                            className="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-slate-200/60 transition-all duration-300 flex justify-between items-center"
+                            className="group bg-panel p-6 rounded-xl border-2 border-border-hard shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#000000] transition-all duration-200 flex justify-between items-center h-full"
                         >
-                            <div className="space-y-1 min-w-0">
-                                <h3 className="font-bold text-slate-900 group-hover:text-[#b91c1c] transition-colors duration-200 capitalize text-lg tracking-tight truncate">
+                            <div className="space-y-2 min-w-0">
+                                <h3 className="font-mono font-black text-text-primary group-hover:text-primary transition-colors duration-200 capitalize text-lg tracking-tight truncate">
                                     {author.name}
                                 </h3>
-                                <span className="inline-flex items-center text-xs font-medium text-slate-400">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2 group-hover:bg-[#b91c1c] transition-colors duration-200"></span>
+                                <span className="inline-flex items-center text-xs font-mono font-bold text-text-secondary">
+                                    <span className="w-2 h-2 bg-oak-light border border-border-hard mr-2 group-hover:bg-oak transition-colors duration-200"></span>
                                     {author.books_count} {author.books_count === 1 ? 'livro no acervo' : 'livros no acervo'}
                                 </span>
                             </div>
 
-                            <span className="text-slate-300 group-hover:text-[#b91c1c] group-hover:translate-x-1 transform text-xl font-light transition-all duration-200 pl-4">
+                            <span className="w-8 h-8 rounded-lg border-2 border-border-hard bg-panel-alt text-text-primary flex items-center justify-center font-mono font-black text-sm group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all">
                                 →
                             </span>
                         </Link>
@@ -126,29 +123,36 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
             )}
 
             {authors.links && authors.data.length > 0 && (
-                <div className="mt-12 flex justify-between items-center bg-white px-4 py-3 rounded-xl border border-slate-100 shadow-xs">
-                    <Link
-                        href={authors.prev_page_url || '#'}
-                        disabled={!authors.prev_page_url}
-                        className={`px-4 py-2 text-xs font-semibold rounded-lg border transition ${
-                            authors.prev_page_url
-                                ? 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
-                                : 'bg-slate-50 border-slate-100 text-slate-300 cursor-not-allowed'
-                        }`}
-                    >
-                        Anterior
-                    </Link>
-                    <Link
-                        href={authors.next_page_url || '#'}
-                        disabled={!authors.next_page_url}
-                        className={`px-4 py-2 text-xs font-semibold rounded-lg border transition ${
-                            authors.next_page_url
-                                ? 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
-                                : 'bg-slate-50 border-slate-100 text-slate-300 cursor-not-allowed'
-                        }`}
-                    >
-                        Próximo
-                    </Link>
+                <div className="mt-12 flex justify-between items-center bg-panel px-6 py-4 rounded-xl border-2 border-border-hard shadow-hard">
+                    {authors.prev_page_url ? (
+                        <Link
+                            href={authors.prev_page_url}
+                            className="group/button inline-flex h-10 px-5 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-hard"
+                        >
+                            ◀ Anterior
+                        </Link>
+                    ) : (
+                        <span className="group/button inline-flex h-10 px-5 gap-2 shrink-0 items-center justify-center rounded-none border-transparent bg-transparent text-text-primary font-mono text-xs font-bold uppercase select-none opacity-50 cursor-not-allowed">
+                ◀ Anterior
+            </span>
+                    )}
+
+                    <span className="font-mono text-xs font-bold text-text-secondary">
+            Pág. {authors.current_page} de {authors.last_page}
+        </span>
+
+                    {authors.next_page_url ? (
+                        <Link
+                            href={authors.next_page_url}
+                            className="group/button inline-flex h-10 px-5 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-hard"
+                        >
+                            Próximo ▶
+                        </Link>
+                    ) : (
+                        <span className="group/button inline-flex h-10 px-5 gap-2 shrink-0 items-center justify-center rounded-none border-transparent bg-transparent text-text-primary font-mono text-xs font-bold uppercase select-none opacity-50 cursor-not-allowed">
+                Próximo ▶
+            </span>
+                    )}
                 </div>
             )}
         </>
