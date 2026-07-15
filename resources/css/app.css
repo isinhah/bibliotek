@@ -8,197 +8,135 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-@keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
+/* Animações */
 .animate-slide-up {
     animation: slideUp 0.3s ease-out forwards;
 }
 
-@theme inline {
-    --font-heading: var(--font-mono);
-    --font-mono: 'JetBrains Mono Variable', monospace;
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+.animate-float {
+    animation: floatBook 4s ease-in-out infinite;
 }
 
-:root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+.animate-aurora-1 {
+    animation: aurora 10s infinite alternate;
 }
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+.animate-aurora-2 {
+    animation: aurora 15s infinite alternate-reverse;
 }
 
 @theme {
     /* Fontes */
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
-    /* Fundo */
-    --color-page: #F4F1EA;
-    --color-panel: #EBEFEA;
-    --color-panel-alt: #FFFFFF;
+    /* Keyframes */
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes floatBook {
+        0%, 100% {
+            transform: translateY(0) rotate(-2deg);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes aurora {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.2);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.8);
+        }
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+
+    /* Fundo Principal */
+    --color-page: #120C08;
+    --color-panel: #1D130D;
+    --color-panel-alt: #281B12;
 
     /* Texto */
-    --color-text-primary: #1C332B;
-    --color-text-secondary: #43564D;
+    --color-text-primary: #F7F4F2;   /* Branco papel antigo */
+    --color-text-secondary: #BFAEA3; /* Marrom-bege suave para o autor */
 
     /* Bordas */
-    --color-border: #0D1A15;
+    --color-border: #000000;
     --color-border-hard: #000000;
 
-    /* Acento madeira */
-    --color-oak: #A87C4F;
-    --color-oak-light: #C9A876;
+    /* Acento */
+    --color-oak: #D97706;
+    --color-oak-light: #F59E0B;
 
     /* Botão Primary */
-    --color-primary: #2E4A3F;
-    --color-primary-foreground: #F5F2EB;
+    --color-primary: #E11D48;
+    --color-primary-foreground: #FFFFFF;
 
     /* Botão Secondary */
-    --color-secondary: #E6DFD3;
-    --color-secondary-foreground: #2E4A3F;
+    --color-secondary: #422F24;
+    --color-secondary-foreground: #F7F4F2;
 
     /* Botão Danger */
-    --color-danger: #C85A4B;
-    --color-danger-foreground: #F5F2EB;
+    --color-danger: #EF4444;
+    --color-danger-foreground: #FFFFFF;
 
     /* Warning */
-    --color-warning: #B8873D;
-    --color-warning-foreground: #F5F2EB;
+    --color-warning: #FBBF24;
+    --color-warning-foreground: #120C08;
 
-    /* Sombra retrô */
+    /* Sombra */
     --shadow-hard: 4px 4px 0px 0px #000000;
+
+    --color-ring: #E11D48;
 }
 
 .dark {
-    --color-page: #141110;
-    --color-panel: #1E1B18;
-    --color-panel-alt: #252220;
-    --color-text-primary: #EDE7DB;
-    --color-text-secondary: #A6998A;
-    --color-border: #3A342E;
-
-    --color-primary: #3D6653;
-    --color-primary-foreground: #F5F2EB;
-
-    --color-secondary: #2A241E;
-    --color-secondary-foreground: #E6DFD3;
-
-    --color-oak: #C9A876;
+    --color-page: #0C0805;
+    --color-panel: #150F0B;
+    --color-panel-alt: #1F150F;
+    --color-text-primary: #F7F4F2;
+    --color-text-secondary: #AB9B90;
+    --color-border: #000000;
+    --color-oak: #D97706;
+    --color-primary: #BE123C;
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: #2D1E16;
+    --color-secondary-foreground: #F7F4F2;
+    --color-ring: #BE123C;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-page text-text-primary;
     }
-  html {
-    @apply font-mono;
+    html {
+        @apply font-mono;
+    }
+
+    /* Cursores de forma global */
+    a,
+    button,
+    input[type="submit"],
+    input[type="button"],
+    input[type="reset"],
+    select {
+        cursor: pointer !important;
+    }
+
+    /* Cursor de clique para os cards de livros e autores */
+    .group:hover {
+        cursor: pointer;
     }
 }
