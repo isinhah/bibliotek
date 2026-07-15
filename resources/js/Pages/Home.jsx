@@ -1,6 +1,15 @@
-import {Link, useForm} from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
 import BookCard from '../Components/BookCard';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselPrevious,
+    CarouselNext,
+} from '@/Components/ui/carousel.jsx';
+
+const MAX_HOME_CATEGORIES = 6;
 
 export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [], loanedBookIds = [] }) {
     const { data, setData, get } = useForm({
@@ -11,6 +20,11 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
         e.preventDefault();
         get('/', { preserveState: true });
     };
+
+    const categories = Array.isArray(categoriesWithBooks)
+        ? categoriesWithBooks.slice(0, MAX_HOME_CATEGORIES)
+        : [];
+    const hasMoreCategories = Array.isArray(categoriesWithBooks) && categoriesWithBooks.length > MAX_HOME_CATEGORIES;
 
     return (
         <>
@@ -26,9 +40,18 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
 
                 <header className="relative text-center px-4">
                     <div className="flex justify-center mb-6">
-                        <div className="animate-float">
+                        <div className="animate-float animate-summon">
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/30 rounded-full blur-3xl pointer-events-none animate-aurora-1"></div>
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-oak/20 rounded-full blur-3xl pointer-events-none animate-aurora-2"></div>
+
+                            <span className="animate-summon-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-primary pointer-events-none"></span>
+
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '0deg' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_2px_rgba(225,29,72,0.6)]" style={{ '--spark-angle': '60deg', animationDelay: '0.1s' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '120deg', animationDelay: '0.2s' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_2px_rgba(225,29,72,0.6)]" style={{ '--spark-angle': '180deg', animationDelay: '0.05s' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '240deg', animationDelay: '0.15s' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_2px_rgba(225,29,72,0.6)]" style={{ '--spark-angle': '300deg', animationDelay: '0.25s' }}></span>
 
                             <img
                                 src="/images/enchanted_book.gif"
@@ -39,9 +62,11 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                     </div>
 
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-black text-text-primary tracking-tight uppercase max-w-2xl mx-auto leading-tight">
-                        Encante a sua mente<br className="hidden sm:block" /> com uma nova leitura
+                        <RevealWords text="Encante a sua mente" startDelay={0.35} />
+                        <br className="hidden sm:block" />
+                        <RevealWords text="com uma nova leitura" startDelay={0.35 + 0.35} highlightLast />
                     </h1>
-                    <p className="text-text-secondary mt-4 max-w-md mx-auto text-sm sm:text-base font-semibold">
+                    <p className="text-text-secondary mt-4 max-w-md mx-auto text-sm sm:text-base font-semibold animate-fade-in-up" style={{ animationDelay: '1.3s' }}>
                         Explore o acervo da Bibliotek e encontre sua próxima leitura.
                     </p>
                 </header>
@@ -85,8 +110,8 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                     </section>
                 ) : (
                     <>
-                        {Array.isArray(categoriesWithBooks) && categoriesWithBooks.map(category => (
-                            <section key={category.id} className="mb-14">
+                        {categories.map(category => (
+                            <section key={category.id} className="mb-16">
                                 <SectionHeader
                                     title={category.name}
                                     capitalize
@@ -100,33 +125,78 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                     }
                                 />
 
-                                <div className="flex gap-5 overflow-x-auto pb-4 px-1 snap-x snap-mandatory scroll-smooth custom-scrollbar">
-                                    {category.books && category.books.map(book => (
-                                        <div key={book.id} className="w-[260px] sm:w-[290px] md:w-[310px] flex-shrink-0 snap-start">
-                                            <BookCard
-                                                book={book}
-                                                isSaved={savedBookIds.includes(book.id)}
-                                                hasActiveLoan={loanedBookIds.includes(book.id)}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                                <CategoryCarousel
+                                    books={category.books}
+                                    savedBookIds={savedBookIds}
+                                    loanedBookIds={loanedBookIds}
+                                />
                             </section>
                         ))}
+
+                        {hasMoreCategories && (
+                            <div className="text-center mt-4 mb-8">
+                                <Link
+                                    href="/categories"
+                                    className="inline-flex items-center gap-2 border-2 border-border-hard bg-panel px-6 py-3 text-xs font-bold uppercase tracking-wide text-text-primary shadow-hard hover:bg-primary hover:text-primary-foreground active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-150"
+                                >
+                                    Ver todas as categorias →
+                                </Link>
+                            </div>
+                        )}
                     </>
                 )}
             </div>
-
-            <style>{`
-                @keyframes pulseGlow {
-                    0%, 100% { opacity: 0.4; transform: scale(1); }
-                    50% { opacity: 0.7; transform: scale(1.15); }
-                }
-                .animate-glow-pulse {
-                    animation: pulseGlow 3s ease-in-out infinite;
-                }
-            `}</style>
         </>
+    );
+}
+
+function CategoryCarousel({ books, savedBookIds, loanedBookIds }) {
+    if (!books || books.length === 0) return null;
+
+    return (
+        <Carousel
+            opts={{ align: 'start', loop: false }}
+            className="px-1 sm:px-2"
+        >
+            <CarouselContent>
+                {books.map(book => (
+                    <CarouselItem
+                        key={book.id}
+                        className="basis-full sm:basis-1/2 lg:basis-1/4"
+                    >
+                        <BookCard
+                            book={book}
+                            isSaved={savedBookIds.includes(book.id)}
+                            hasActiveLoan={loanedBookIds.includes(book.id)}
+                        />
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+
+            <CarouselPrevious className="hidden sm:flex" />
+            <CarouselNext className="hidden sm:flex" />
+        </Carousel>
+    );
+}
+
+function RevealWords({ text, startDelay = 0, highlightLast = false }) {
+    const words = text.split(' ');
+    return (
+        <span className="inline-block">
+            {words.map((word, i) => {
+                const isLast = highlightLast && i === words.length - 1;
+                return (
+                    <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.28em] last:mr-0">
+                        <span
+                            className={`inline-block animate-word-reveal ${isLast ? 'text-primary' : ''}`}
+                            style={{ animationDelay: `${startDelay + i * 0.09}s` }}
+                        >
+                            {word}
+                        </span>
+                    </span>
+                );
+            })}
+        </span>
     );
 }
 
