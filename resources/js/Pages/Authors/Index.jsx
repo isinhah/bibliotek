@@ -29,15 +29,15 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
             <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-6 border-b-2 border-border-hard">
                 <div>
                     <h1 className="text-3xl sm:text-4xl font-mono font-black text-text-primary tracking-tight flex items-center gap-3">
-                        <span className="w-2.5 h-8 bg-oak border-2 border-border-hard rounded-xs"></span>
-                        Escritores e Autores
+                        <span className="w-2.5 h-8 bg-oak border-2 border-border-hard rounded-none"></span>
+                        Autores
                     </h1>
                     <p className="text-text-secondary mt-2 max-w-xl text-sm font-mono font-semibold">
                         Conheça os escritores e autores disponíveis no nosso acervo.
                     </p>
                 </div>
 
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-primary bg-panel border-2 border-border-hard px-3 py-1.5 rounded-xl shadow-hard">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-primary bg-panel-alt border-2 border-border-hard px-3 py-1.5 rounded-none shadow-hard">
                     Total: {authors.total} autores
                 </span>
             </header>
@@ -51,7 +51,7 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                                 value={data.search}
                                 onChange={e => setData('search', e.target.value)}
                                 placeholder="Pesquisar autor por nome..."
-                                className="w-full font-mono text-xs font-semibold bg-panel-alt text-text-primary border-2 border-border-hard rounded-xl h-10 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary focus:border-border-hard shadow-hard placeholder:text-text-secondary/50"
+                                className="w-full font-mono text-xs font-semibold bg-panel-alt text-text-primary border-2 border-border-hard rounded-none h-10 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary focus:border-border-hard shadow-hard placeholder:text-text-secondary/50"
                             />
                             {data.search && (
                                 <button
@@ -69,7 +69,7 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                     </form>
                 </div>
 
-                <div className="flex flex-wrap gap-2 p-3 bg-panel rounded-xl border-2 border-border-hard shadow-hard">
+                <div className="flex flex-wrap gap-2 p-3 bg-panel rounded-none border-2 border-border-hard shadow-hard">
                     {alphabet.map(letter => {
                         const isSelected = data.letter === letter;
                         return (
@@ -77,8 +77,8 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                                 key={letter}
                                 type="button"
                                 onClick={() => handleLetterClick(letter)}
-                                variant={isSelected ? "primary" : "secondary"}
-                                className={`w-9 h-9 p-0 flex items-center justify-center font-mono font-bold text-xs transition-all ${
+                                variant={isSelected ? "primary" : "outline"}
+                                className={`w-9 h-9 p-0 flex items-center justify-center font-mono font-bold text-xs transition-all rounded-none ${
                                     isSelected ? 'scale-105 shadow-[2px_2px_0px_0px_#000000]' : ''
                                 }`}
                             >
@@ -90,40 +90,52 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
             </div>
 
             {authors.data.length === 0 ? (
-                <div className="text-center py-24 bg-panel border-2 border-border-hard rounded-xl shadow-hard max-w-lg mx-auto">
+                <div className="text-center py-24 bg-panel-alt border-2 border-border-hard rounded-none shadow-hard max-w-lg mx-auto">
                     <span className="text-4xl block mb-4">✍️</span>
                     <p className="text-text-primary font-mono font-bold text-sm">
                         Nenhum autor cadastrado com esses critérios.
                     </p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {authors.data.map(author => (
                         <Link
                             key={author.id}
                             href={`/authors/${author.id}/books`}
-                            className="group bg-panel p-6 rounded-xl border-2 border-border-hard shadow-hard hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#000000] transition-all duration-200 flex justify-between items-center h-full"
+                            className="group relative flex flex-col justify-between h-32 p-5 bg-panel-alt text-text-primary border-2 border-border-hard shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.8)] hover:border-primary hover:shadow-primary/20 transition-all duration-300 rounded-none overflow-hidden"
                         >
-                            <div className="space-y-2 min-w-0">
-                                <h3 className="font-mono font-black text-text-primary group-hover:text-primary transition-colors duration-200 capitalize text-lg tracking-tight truncate">
+                            <div
+                                className="absolute inset-0 opacity-[0.06] pointer-events-none"
+                                style={{
+                                    backgroundImage:
+                                        'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
+                                    backgroundSize: '12px 12px',
+                                }}
+                            />
+
+                            <div className="space-y-1.5 min-w-0 relative z-10">
+                                <h3 className="font-mono font-black uppercase text-lg tracking-tight truncate capitalize group-hover:text-primary transition-colors duration-200">
                                     {author.name}
                                 </h3>
+
                                 <span className="inline-flex items-center text-xs font-mono font-bold text-text-secondary">
-                                    <span className="w-2 h-2 bg-oak-light border border-border-hard mr-2 group-hover:bg-oak transition-colors duration-200"></span>
+                                    <span className="w-2 h-2 bg-oak border border-border-hard mr-2 rounded-none"></span>
                                     {author.books_count} {author.books_count === 1 ? 'livro no acervo' : 'livros no acervo'}
                                 </span>
                             </div>
 
-                            <span className="w-8 h-8 rounded-lg border-2 border-border-hard bg-panel-alt text-text-primary flex items-center justify-center font-mono font-black text-sm group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all">
-                                →
-                            </span>
+                            <div className="flex justify-end relative z-10">
+                                <span className="w-8 h-8 border-2 border-border-hard bg-panel text-text-primary flex items-center justify-center font-mono font-black text-xs group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[2px_2px_0px_0px_#000000] transition-all duration-200">
+                                    🪶
+                                </span>
+                            </div>
                         </Link>
                     ))}
                 </div>
             )}
 
             {authors.links && authors.data.length > 0 && (
-                <div className="mt-12 flex justify-between items-center bg-panel px-6 py-4 rounded-xl border-2 border-border-hard shadow-hard">
+                <div className="mt-12 flex justify-between items-center bg-panel px-6 py-4 rounded-none border-2 border-border-hard shadow-hard">
                     {authors.prev_page_url ? (
                         <Link
                             href={authors.prev_page_url}
@@ -133,13 +145,13 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                         </Link>
                     ) : (
                         <span className="group/button inline-flex h-10 px-5 gap-2 shrink-0 items-center justify-center rounded-none border-transparent bg-transparent text-text-primary font-mono text-xs font-bold uppercase select-none opacity-50 cursor-not-allowed">
-                ◀ Anterior
-            </span>
+                            ◀ Anterior
+                        </span>
                     )}
 
                     <span className="font-mono text-xs font-bold text-text-secondary">
-            Pág. {authors.current_page} de {authors.last_page}
-        </span>
+                        Pág. {authors.current_page} de {authors.last_page}
+                    </span>
 
                     {authors.next_page_url ? (
                         <Link
@@ -150,8 +162,8 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                         </Link>
                     ) : (
                         <span className="group/button inline-flex h-10 px-5 gap-2 shrink-0 items-center justify-center rounded-none border-transparent bg-transparent text-text-primary font-mono text-xs font-bold uppercase select-none opacity-50 cursor-not-allowed">
-                Próximo ▶
-            </span>
+                            Próximo ▶
+                        </span>
                     )}
                 </div>
             )}
