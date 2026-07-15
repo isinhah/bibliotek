@@ -22,6 +22,8 @@
         "@vitejs/plugin-react": "^6.0.3",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "embla-carousel-react": "^8.6.0",
+        "lucide-react": "^1.24.0",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
         "shadcn": "^4.13.0",
