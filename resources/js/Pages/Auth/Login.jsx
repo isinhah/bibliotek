@@ -1,6 +1,6 @@
 import { useForm, Link } from '@inertiajs/react'
 import Layout from '../../Layouts/Layout.jsx'
-import {Button} from "@/Components/ui/Button.jsx";
+import { Button } from "@/Components/ui/Button.jsx";
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
@@ -16,14 +16,15 @@ export default function Login() {
     }
 
     return (
-        <div className="max-w-md mx-auto bg-white p-10 rounded-2xl shadow-sm border border-slate-100 mt-16">
-            <h2 className="text-3xl font-black text-slate-950 mb-8 text-center tracking-tighter">
+        <div className="max-w-md mx-auto bg-panel-alt p-8 sm:p-10 rounded-none border-2 border-border-hard shadow-hard mt-16 font-mono">
+            <h2 className="text-2xl sm:text-3xl font-black text-text-primary mb-8 text-center uppercase tracking-tight flex items-center justify-center gap-2.5">
+                <span className="w-3.5 h-3.5 bg-primary border border-border-hard shrink-0 animate-pulse"></span>
                 Acesse sua conta
             </h2>
 
             <form onSubmit={submit}>
                 <div className="mb-5">
-                    <label className="block text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
+                    <label className="block text-text-secondary text-xs font-bold uppercase tracking-wider mb-2">
                         E-mail
                     </label>
                     <input
@@ -31,20 +32,20 @@ export default function Login() {
                         name="email"
                         value={data.email}
                         onChange={e => setData('email', e.target.value)}
-                        className={`w-full px-4 py-3 bg-white border rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#b91c1c] text-sm text-slate-800 transition-all ${
-                            errors.email ? 'border-red-500' : 'border-slate-200'
+                        className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
+                            errors.email ? 'border-danger' : 'border-border-hard'
                         }`}
                         required
                     />
                     {errors.email && (
-                        <span className="text-red-500 text-xs mt-1.5 block font-medium">
-                            {errors.email}
+                        <span className="text-danger text-xs mt-1.5 block font-bold">
+                            ✕ {errors.email}
                         </span>
                     )}
                 </div>
 
                 <div className="mb-8">
-                    <label className="block text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
+                    <label className="block text-text-secondary text-xs font-bold uppercase tracking-wider mb-2">
                         Senha
                     </label>
                     <input
@@ -52,15 +53,15 @@ export default function Login() {
                         name="password"
                         value={data.password}
                         onChange={e => setData('password', e.target.value)}
-                        className={`w-full px-4 py-3 bg-white border rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#b91c1c] text-sm text-slate-800 transition-all ${
-                            errors.password ? 'border-red-500' : 'border-slate-200'
+                        className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
+                            errors.password ? 'border-danger' : 'border-border-hard'
                         }`}
                         required
                     />
 
                     {errors.password && (
-                        <span className="text-red-500 text-xs mt-1.5 block font-medium">
-                            {errors.password}
+                        <span className="text-danger text-xs mt-1.5 block font-bold">
+                            ✕ {errors.password}
                         </span>
                     )}
                 </div>
@@ -68,18 +69,17 @@ export default function Login() {
                 <Button
                     type="submit"
                     disabled={processing}
-                    className={`w-full bg-slate-950 hover:bg-[#b91c1c] text-white font-semibold py-3 rounded-2xl transition duration-200 shadow-sm mb-6 focus:outline-none ${
-                        processing ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    variant="primary"
+                    className="w-full h-12 mb-6"
                 >
                     {processing ? 'Entrando...' : 'Entrar'}
                 </Button>
 
-                <p className="text-center text-sm text-slate-500">
+                <p className="text-center text-xs font-bold text-text-secondary">
                     Não tem uma conta?
                     <Link
                         href="/register"
-                        className="text-[#b91c1c] font-semibold hover:underline underline-offset-4 ml-1"
+                        className="text-primary hover:underline underline-offset-4 ml-1"
                     >
                         Cadastre-se
                     </Link>
