@@ -8,31 +8,24 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                // Botão principal — verde musgo
                 primary:
                     "bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard focus-visible:ring-2 focus-visible:ring-border-hard",
 
-                // Botão secundário — areia quente
                 secondary:
                     "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-hard focus-visible:ring-2 focus-visible:ring-primary",
 
-                // Perigo — coral queimado
                 danger:
                     "bg-danger text-danger-foreground hover:bg-danger/90 shadow-hard focus-visible:ring-2 focus-visible:ring-border-hard",
 
-                // Aviso — âmbar (empréstimo atrasado, etc)
                 warning:
                     "bg-warning text-warning-foreground hover:bg-warning/90 shadow-hard focus-visible:ring-2 focus-visible:ring-border-hard",
 
-                // Acento madeira — usos pontuais (destaque, badge de ação)
                 oak:
                     "bg-oak text-primary-foreground hover:bg-oak/90 shadow-hard focus-visible:ring-2 focus-visible:ring-border-hard",
 
-                // Outline — fundo do painel, borda dura, hover vira primary
                 outline:
                     "border-2 border-border-hard bg-panel-alt text-text-primary hover:bg-primary hover:text-primary-foreground shadow-hard",
 
-                // Ghost — sem sombra/borda, uso em ações terciárias
                 ghost:
                     "border-transparent bg-transparent text-text-primary hover:bg-panel shadow-none",
             },
