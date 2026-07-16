@@ -21,31 +21,22 @@ export default function Index({ categories }) {
                     <Link
                         key={category.id}
                         href={`/categories/${category.id}/books`}
-                        className="group relative flex flex-col justify-between h-36 p-6 bg-panel-alt text-text-primary border-2 border-border-hard shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.8)] hover:border-primary hover:shadow-primary/20 transition-all duration-300 rounded-none overflow-hidden"
+                        className="group relative flex flex-col justify-between h-32 p-5 bg-panel-alt text-text-primary border-2 border-border-hard shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(225,29,72,0.15)] hover:border-primary transition-all duration-300 rounded-none overflow-hidden"
                     >
-                        <div
-                            className="absolute inset-0 opacity-[0.06] pointer-events-none"
-                            style={{
-                                backgroundImage:
-                                    'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
-                                backgroundSize: '12px 12px',
-                            }}
-                        />
-
                         <div className="space-y-1.5 min-w-0 relative z-10">
                             <h3 className="font-mono font-black uppercase text-lg tracking-tight truncate capitalize group-hover:text-primary transition-colors duration-200">
                                 {category.name}
                             </h3>
 
                             <span className="inline-flex items-center text-xs font-mono font-bold text-text-secondary">
-                                <span className="w-2 h-2 bg-oak border border-border-hard mr-2 rounded-none"></span>
-                                {category.books_count} {category.books_count === 1 ? 'livro' : 'livros'}
+                                <span className="w-1.5 h-1.5 bg-oak border border-border-hard mr-2 rounded-none group-hover:bg-primary transition-colors duration-200"></span>
+                                {category.books_count} {category.books_count === 1 ? 'livro catalogado' : 'livros catalogados'}
                             </span>
                         </div>
 
                         <div className="flex justify-end relative z-10">
-                            <span className="w-8 h-8 border-2 border-border-hard bg-panel text-text-primary flex items-center justify-center font-mono font-black text-sm group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[2px_2px_0px_0px_#000000] transition-all duration-200">
-                                🗂️
+                            <span className="text-xs font-mono font-bold text-text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-200">
+                                Explorar →
                             </span>
                         </div>
                     </Link>
