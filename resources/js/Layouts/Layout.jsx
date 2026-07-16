@@ -6,6 +6,7 @@ export default function Layout({ children, title, isHome = false }) {
     const { auth } = usePage().props || {}
     const isAuthenticated = !!auth?.user;
     const isAdmin = auth?.user?.role === 'admin';
+    const profileUrl = isAdmin ? '/admin/profile' : '/reader/profile';
 
     return (
         <>
@@ -77,6 +78,18 @@ export default function Layout({ children, title, isHome = false }) {
                                         Painel Admin
                                     </a>
                                 )}
+
+                                <a
+                                    href={profileUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Editar Perfil"
+                                    className="border-2 border-border-hard bg-panel-alt text-text-primary h-9 w-9 transition-colors duration-150 shadow-hard hover:bg-secondary hover:text-secondary-foreground flex items-center justify-center rounded-none shrink-0"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                    </svg>
+                                </a>
 
                                 <Link
                                     href="/logout"

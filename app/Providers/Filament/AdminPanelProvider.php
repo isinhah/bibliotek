@@ -6,7 +6,6 @@ use App\Filament\Admin\Widgets\AdminStatsWidget;
 use App\Filament\Admin\Widgets\LoansByCategoryChart;
 use App\Filament\Admin\Widgets\MostRequestedBooksChart;
 use App\Filament\Dashboard;
-use Filament\Auth\Pages\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -21,6 +20,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,7 +30,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->profile(EditProfile::class)
+            ->plugins([
+                FilamentEditProfilePlugin::make()
+                    ->slug('profile')
+                    ->setTitle('Editar Perfil')
+                    ->setNavigationGroup('Minha Conta')
+                    ->setIcon('heroicon-o-user')
+            ])
             ->brandName('Bibliotek')
             ->colors([
                 'primary' => Color::Hex('#b91c1c'),

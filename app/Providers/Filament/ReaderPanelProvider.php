@@ -5,7 +5,6 @@ namespace App\Providers\Filament;
 use App\Filament\Dashboard;
 use App\Filament\Reader\Widgets\ReaderStatsWidget;
 use App\Filament\Reader\Widgets\ReaderWelcomeWidget;
-use Filament\Auth\Pages\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -20,6 +19,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 
 class ReaderPanelProvider extends PanelProvider
 {
@@ -28,7 +28,13 @@ class ReaderPanelProvider extends PanelProvider
         return $panel
             ->id('reader')
             ->path('reader')
-            ->profile(EditProfile::class)
+            ->plugins([
+                FilamentEditProfilePlugin::make()
+                    ->slug('profile')
+                    ->setTitle('Editar Perfil')
+                    ->setNavigationGroup('Minha Conta')
+                    ->setIcon('heroicon-o-user')
+            ])
             ->brandName('Bibliotek')
             ->colors([
                 'primary' => Color::Hex('#b91c1c'),
