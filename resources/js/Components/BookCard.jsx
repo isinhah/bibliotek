@@ -43,7 +43,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                 </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-5 items-center sm:items-start text-center sm:text-left">
+            <div className="flex flex-col sm:flex-row gap-4 mb-5 items-center sm:items-start text-center sm:text-left min-h-[144px]">
                 <div className="w-24 h-36 bg-panel rounded-none overflow-hidden flex-shrink-0 border-2 border-border-hard flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300 relative shadow-hard">
                     {coverUrl ? (
                         <img src={coverUrl} className="w-full h-full object-cover select-none" alt={book.title} />
@@ -62,38 +62,45 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                 </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t-2 border-border-hard mt-auto">
+            <div className="grid grid-cols-2 gap-2 pt-4 border-t-2 border-border-hard mt-auto w-full">
 
-                <div className="relative z-10 w-full sm:w-auto">
+                <div className="relative z-10 w-full flex">
                     {isAuthenticated ? (
-                        <form onSubmit={handleToggleReadingList} className="m-0">
+                        <form onSubmit={handleToggleReadingList} className="m-0 w-full flex">
                             <Button
                                 type="submit"
                                 disabled={readingListForm.processing}
                                 variant={isSaved ? "primary" : "secondary"}
-                                className="w-full"
+                                className="w-full text-[10px] sm:text-xs px-2 h-10"
                             >
-                                {isSaved ? 'Guardado' : 'Ler mais tarde'}
+                                {isSaved ? 'Guardado' : 'Guardar'}
                             </Button>
                         </form>
                     ) : (
                         <Link
                             href="/login"
-                            className="font-mono text-xs font-bold uppercase select-none outline-none inline-flex items-center justify-center border-2 border-border-hard bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-hard rounded-none h-10 px-5 gap-2 w-full"
+                            className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-hard w-full"
                         >
-                            Ler mais tarde
+                            Guardar
                         </Link>
                     )}
                 </div>
 
-                <div className="relative z-10 w-full sm:w-auto text-right">
+                <div className="relative z-10 w-full flex">
                     {isAuthenticated ? (
-                        <form onSubmit={handleLoan} className="m-0 inline-block w-full sm:w-auto">
+                        <form
+                            onSubmit={handleLoan}
+                            className={`m-0 w-full flex ${isLoanButtonDisabled ? 'cursor-not-allowed' : ''}`}
+                        >
                             <Button
                                 type="submit"
-                                variant={hasActiveLoan ? "secondary" : "primary"}
+                                variant={hasActiveLoan ? "secondary" : (book.stock > 0 ? "primary" : "outline")}
                                 disabled={isLoanButtonDisabled}
-                                className="w-full sm:w-auto"
+                                className={`w-full text-[10px] sm:text-xs px-2 h-10 ${
+                                    isLoanButtonDisabled
+                                        ? 'opacity-50 cursor-not-allowed'
+                                        : ''
+                                }`}
                             >
                                 {loanForm.processing ? (
                                     'Processando...'
@@ -110,17 +117,18 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                         book.stock > 0 ? (
                             <Link
                                 href="/login"
-                                className="font-mono text-xs font-bold uppercase select-none outline-none inline-flex items-center justify-center border-2 border-border-hard bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard rounded-none h-10 px-5 gap-2 w-full sm:w-auto"
+                                className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard w-full"
                             >
                                 Empréstimo
                             </Link>
                         ) : (
-                            <button
+                            <Button
                                 disabled
-                                className="font-mono text-xs font-bold uppercase select-none border-2 border-border-hard bg-panel text-text-secondary rounded-none h-10 px-5 gap-2 cursor-not-allowed w-full sm:w-auto"
+                                variant="outline"
+                                className="w-full text-[10px] sm:text-xs px-2 h-10 opacity-50 cursor-not-allowed pointer-events-none"
                             >
                                 Esgotado
-                            </button>
+                            </Button>
                         )
                     )}
                 </div>
