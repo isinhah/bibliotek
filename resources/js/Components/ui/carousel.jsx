@@ -148,7 +148,6 @@ function CarouselItem({ className, ...props }) {
     )
 }
 
-// Setas brutalistas: cantos retos, borda preta grossa, sombra dura, glow carmesim no hover.
 function CarouselPrevious({ className, ...props }) {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
@@ -160,14 +159,14 @@ function CarouselPrevious({ className, ...props }) {
             disabled={!canScrollPrev}
             onClick={scrollPrev}
             className={cn(
-                "absolute z-20 flex size-10 items-center justify-center",
+                "absolute z-40 flex size-10 items-center justify-center",
                 "rounded-none border-2 border-border-hard bg-panel text-text-primary",
                 "shadow-hard transition-all duration-150",
                 "hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_16px_rgba(225,29,72,0.55)]",
                 "active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
                 "disabled:opacity-30 disabled:pointer-events-none disabled:hover:bg-panel",
                 orientation === "horizontal"
-                    ? "top-1/2 -left-3 sm:-left-5 -translate-y-1/2"
+                    ? "top-1/2 left-2 -translate-y-1/2"
                     : "-top-3 left-1/2 -translate-x-1/2 rotate-90",
                 className
             )}
@@ -190,14 +189,14 @@ function CarouselNext({ className, ...props }) {
             disabled={!canScrollNext}
             onClick={scrollNext}
             className={cn(
-                "absolute z-20 flex size-10 items-center justify-center",
+                "absolute z-40 flex size-10 items-center justify-center",
                 "rounded-none border-2 border-border-hard bg-panel text-text-primary",
                 "shadow-hard transition-all duration-150",
                 "hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_16px_rgba(225,29,72,0.55)]",
                 "active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
                 "disabled:opacity-30 disabled:pointer-events-none disabled:hover:bg-panel",
                 orientation === "horizontal"
-                    ? "top-1/2 -right-3 sm:-right-5 -translate-y-1/2"
+                    ? "top-1/2 right-2 -translate-y-1/2"
                     : "-bottom-3 left-1/2 -translate-x-1/2 rotate-90",
                 className
             )}

@@ -161,7 +161,7 @@ function CategoryCarousel({ books, savedBookIds, loanedBookIds }) {
     return (
         <Carousel
             opts={{ align: 'start', loop: false }}
-            className="px-1 sm:px-2"
+            className="relative px-12 sm:px-14"
         >
             <CarouselContent>
                 {books.map(book => (
@@ -169,11 +169,13 @@ function CategoryCarousel({ books, savedBookIds, loanedBookIds }) {
                         key={book.id}
                         className="basis-full sm:basis-1/2 lg:basis-1/4"
                     >
-                        <BookCard
-                            book={book}
-                            isSaved={savedBookIds.includes(book.id)}
-                            hasActiveLoan={loanedBookIds.includes(book.id)}
-                        />
+                        <div className="py-2 h-full">
+                            <BookCard
+                                book={book}
+                                isSaved={savedBookIds.includes(book.id)}
+                                hasActiveLoan={loanedBookIds.includes(book.id)}
+                            />
+                        </div>
                     </CarouselItem>
                 ))}
             </CarouselContent>
