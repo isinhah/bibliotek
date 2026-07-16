@@ -12,7 +12,6 @@ services:
       SERVICE_TAGS: dev
     ports:
       - "8000:8000"
-      - "5175:5175"
     volumes:
       - .:/var/www
     depends_on:
@@ -21,6 +20,19 @@ services:
       - laravel-network
 
     command: php artisan serve --host=0.0.0.0 --port=8000
+
+  vite:
+      image: app-biblioteca
+      container_name: biblioteca_vite
+      restart: unless-stopped
+      tty: true
+      ports:
+          - "5175:5175"
+      volumes:
+          - .:/var/www
+      networks:
+          - laravel-network
+      command: npm run dev -- --host 0.0.0.0
 
   db:
     image: mysql:8.0
