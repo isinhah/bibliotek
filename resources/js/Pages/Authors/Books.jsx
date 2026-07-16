@@ -13,7 +13,7 @@ export default function Books({ author, books, savedBookIds = [], loanedBookIds 
                     >
                         ← Voltar para Autores
                     </Link>
-                    <h1 className="text-3xl sm:text-4xl font-mono font-black text-text-primary tracking-tight mt-2 flex items-center gap-3">
+                    <h1 className="text-sm sm:text-base font-minecraft font-black text-text-primary uppercase tracking-wider mt-2 flex items-center gap-3 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)]">
                         <span className="w-2.5 h-8 bg-oak border-2 border-border-hard rounded-none"></span>
                         <span className="capitalize">{author.name}</span>
                     </h1>

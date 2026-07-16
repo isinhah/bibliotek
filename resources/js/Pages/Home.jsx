@@ -40,33 +40,38 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
 
                 <header className="relative text-center px-4">
                     <div className="flex justify-center mb-6">
-                        <div className="animate-float animate-summon">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/30 rounded-full blur-3xl pointer-events-none animate-aurora-1"></div>
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-oak/20 rounded-full blur-3xl pointer-events-none animate-aurora-2"></div>
+                        <div className="relative w-40 h-40 flex items-center justify-center">
+                            <div className="absolute inset-0 m-auto w-52 h-52 bg-oak/25 rounded-full blur-3xl pointer-events-none animate-glow-1"></div>
+                            <div className="absolute inset-0 m-auto w-44 h-44 bg-primary/20 rounded-full blur-3xl pointer-events-none animate-glow-2"></div>
+                            <div className="absolute inset-0 m-auto w-28 h-28 bg-oak-light/25 rounded-full blur-2xl pointer-events-none animate-glow-3"></div>
 
-                            <span className="animate-summon-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-primary pointer-events-none"></span>
+                            <span className="animate-summon-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-oak-light pointer-events-none"></span>
 
                             <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '0deg' }}></span>
-                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_2px_rgba(225,29,72,0.6)]" style={{ '--spark-angle': '60deg', animationDelay: '0.1s' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '60deg', animationDelay: '0.1s' }}></span>
                             <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '120deg', animationDelay: '0.2s' }}></span>
                             <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_2px_rgba(225,29,72,0.6)]" style={{ '--spark-angle': '180deg', animationDelay: '0.05s' }}></span>
                             <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '240deg', animationDelay: '0.15s' }}></span>
-                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_2px_rgba(225,29,72,0.6)]" style={{ '--spark-angle': '300deg', animationDelay: '0.25s' }}></span>
+                            <span className="animate-spark absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-oak-light shadow-[0_0_6px_2px_rgba(245,158,11,0.6)]" style={{ '--spark-angle': '300deg', animationDelay: '0.25s' }}></span>
 
-                            <img
-                                src="/images/enchanted_book.gif"
-                                alt="Livro Encantado"
-                                className="relative z-10 w-32 h-32 md:w-36 md:h-36 object-contain drop-shadow-[0_10px_15px_rgba(225,29,72,0.6)]"
-                            />
+                            <div className="animate-summon">
+                                <div className="animate-float-loop">
+                                    <img
+                                        src="/images/enchanted_book.gif"
+                                        alt="Livro Encantado"
+                                        className="relative z-10 w-32 h-32 md:w-36 md:h-36 object-contain drop-shadow-[0_10px_18px_rgba(217,119,6,0.45)]"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-black text-text-primary tracking-tight uppercase max-w-2xl mx-auto leading-tight">
+                    <h1 className="font-minecraft text-2xl sm:text-3xl md:text-4xl text-text-primary uppercase max-w-2xl mx-auto leading-relaxed [text-shadow:3px_3px_0_rgba(0,0,0,0.7)]">
                         <RevealWords text="Encante a sua mente" startDelay={0.35} />
                         <br className="hidden sm:block" />
                         <RevealWords text="com uma nova leitura" startDelay={0.35 + 0.35} highlightLast />
                     </h1>
-                    <p className="text-text-secondary mt-4 max-w-md mx-auto text-sm sm:text-base font-semibold animate-fade-in-up" style={{ animationDelay: '1.3s' }}>
+                    <p className="text-text-secondary mt-5 max-w-md mx-auto text-sm sm:text-base font-semibold animate-fade-in-up" style={{ animationDelay: '1.3s' }}>
                         Explore o acervo da Bibliotek e encontre sua próxima leitura.
                     </p>
                 </header>
@@ -204,12 +209,12 @@ function SectionHeader({ title, subtitle, action, capitalize = false }) {
     return (
         <div className="flex justify-between items-end mb-6 border-b-2 border-border pb-3">
             <div>
-                <h2 className={`text-lg sm:text-xl font-mono font-black text-text-primary uppercase tracking-tight flex items-center gap-2.5 ${capitalize ? 'capitalize' : ''}`}>
-                    <span className="w-2.5 h-2.5 bg-oak border border-border-hard flex-shrink-0"></span>
+                <h2 className={`text-xs sm:text-sm font-minecraft text-text-primary uppercase tracking-wider flex items-center gap-2.5 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)] ${capitalize ? 'capitalize' : ''}`}>
+                    <span className="w-2.5 h-2.5 bg-oak border border-border-hard flex-shrink-0 animate-pulse"></span>
                     {title}
                 </h2>
                 {subtitle && (
-                    <p className="text-xs text-text-secondary mt-1 font-mono font-bold">{subtitle}</p>
+                    <p className="text-xs text-text-secondary mt-1.5 font-mono font-bold">{subtitle}</p>
                 )}
             </div>
             {action}

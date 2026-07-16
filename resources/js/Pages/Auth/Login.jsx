@@ -17,8 +17,8 @@ export default function Login() {
 
     return (
         <div className="max-w-md mx-auto bg-panel-alt p-8 sm:p-10 rounded-none border-2 border-border-hard shadow-hard mt-16 font-mono">
-            <h2 className="text-2xl sm:text-3xl font-black text-text-primary mb-8 text-center uppercase tracking-tight flex items-center justify-center gap-2.5">
-                <span className="w-3.5 h-3.5 bg-primary border border-border-hard shrink-0 animate-pulse"></span>
+            <h2 className="text-xs sm:text-sm font-minecraft font-black text-text-primary mb-8 text-center uppercase tracking-wider flex items-center justify-center gap-2.5 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)]">
+                <span className="w-2.5 h-2.5 bg-primary border border-border-hard shrink-0 animate-pulse"></span>
                 Acesse sua conta
             </h2>
 

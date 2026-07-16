@@ -14,7 +14,10 @@ export default function Layout({ children, title, isHome = false }) {
                 <div className="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
 
                     <div className="flex items-center gap-8 w-full sm:w-auto">
-                        <Link href="/" className="text-xl sm:text-2xl font-mono font-black uppercase tracking-tight text-text-primary hover:text-oak transition-colors duration-150">
+                        <Link
+                            href="/"
+                            className="font-minecraft text-sm sm:text-base uppercase tracking-tight text-text-primary hover:text-oak transition-colors duration-150 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)]"
+                        >
                             Bibliotek<span className="text-primary">.</span>
                         </Link>
 
@@ -27,7 +30,7 @@ export default function Layout({ children, title, isHome = false }) {
                                     {isAdmin ? (
                                         <a
                                             href="/admin"
-                                            className="text-warning hover:text-warning/80 font-black transition-colors duration-150 flex items-center gap-1 border-l-2 border-border-hard pl-6"
+                                            className="text-warning hover:text-warning/80 font-minecraft text-[10px] tracking-wider transition-colors duration-150 flex items-center gap-1.5 border-l-2 border-border-hard pl-6 [text-shadow:1px_1px_0_rgba(0,0,0,0.5)]"
                                         >
                                             <span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse"></span>
                                             Painel Admin

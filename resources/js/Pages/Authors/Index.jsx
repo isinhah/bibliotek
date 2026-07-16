@@ -28,7 +28,7 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
         <>
             <header className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-6 border-b-2 border-border-hard">
                 <div>
-                    <h1 className="text-3xl sm:text-4xl font-mono font-black text-text-primary tracking-tight flex items-center gap-3">
+                    <h1 className="text-sm sm:text-base font-minecraft font-black text-text-primary uppercase tracking-wider flex items-center gap-3 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)]">
                         <span className="w-2.5 h-8 bg-oak border-2 border-border-hard rounded-none"></span>
                         Autores
                     </h1>
@@ -36,10 +36,6 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                         Conheça os escritores e autores disponíveis no nosso acervo.
                     </p>
                 </div>
-
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-primary bg-panel-alt border-2 border-border-hard px-3 py-1.5 rounded-none shadow-hard">
-                    Total: {authors.total} autores
-                </span>
             </header>
 
             <div className="mb-14 space-y-6">

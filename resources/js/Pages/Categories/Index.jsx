@@ -6,7 +6,7 @@ export default function Index({ categories }) {
         <>
             <div className="mb-12 text-center sm:text-left pb-6 border-b-2 border-border-hard flex flex-col sm:flex-row justify-between items-center sm:items-end gap-4">
                 <div>
-                    <h1 className="text-3xl sm:text-4xl font-mono font-black text-text-primary tracking-tight flex items-center justify-center sm:justify-start gap-3">
+                    <h1 className="text-sm sm:text-base font-minecraft font-black text-text-primary uppercase tracking-wider flex items-center justify-center sm:justify-start gap-3 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)]">
                         <span className="w-2.5 h-8 bg-oak border-2 border-border-hard rounded-none"></span>
                         Categorias
                     </h1>

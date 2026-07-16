@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import 'tailwindcss';
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -8,25 +9,31 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-/* Animações */
+.font-minecraft {
+    font-family: 'Press Start 2P', 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+}
+
 .animate-slide-up {
     animation: slideUp 0.3s ease-out forwards;
 }
 
-.animate-float {
-    animation: floatBook 4s ease-in-out infinite;
-}
-
-.animate-aurora-1 {
-    animation: aurora 10s infinite alternate;
-}
-
-.animate-aurora-2 {
-    animation: aurora 15s infinite alternate-reverse;
-}
-
 .animate-summon {
     animation: summon 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-float-loop {
+    animation: floatLoop 3.6s ease-in-out 0.7s infinite;
+}
+
+.animate-glow-1 {
+    animation: glowDrift1 6s ease-in-out infinite;
+}
+.animate-glow-2 {
+    animation: glowDrift2 7.5s ease-in-out infinite;
+}
+.animate-glow-3 {
+    animation: glowFlicker3 2.4s ease-in-out infinite;
 }
 
 .animate-summon-ring {
@@ -45,57 +52,25 @@
     animation: fadeInUp 0.6s ease-out both;
 }
 
-.section-reveal-init {
-    opacity: 0;
-    transform: translateY(24px);
-    visibility: hidden;
-    transition: visibility 0s 0.55s;
-}
-
-.animate-section-reveal {
-    visibility: visible;
-    animation: sectionReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
 @theme {
     /* Fontes */
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
-    /* Keyframes */
     @keyframes slideUp {
         from { transform: translateY(20px); opacity: 0; }
         to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes floatBook {
-        0%, 100% {
-            transform: translateY(0) rotate(-2deg);
-        }
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    @keyframes aurora {
-        0% {
-            transform: translate(0px, 0px) scale(1);
-        }
-        33% {
-            transform: translate(30px, -50px) scale(1.2);
-        }
-        66% {
-            transform: translate(-20px, 20px) scale(0.8);
-        }
-        100% {
-            transform: translate(0px, 0px) scale(1);
-        }
     }
 
     @keyframes summon {
         0% { opacity: 0; transform: scale(0.4) rotate(-8deg); filter: brightness(1.8) blur(2px); }
         60% { opacity: 1; transform: scale(1.06) rotate(2deg); filter: brightness(1.1) blur(0); }
         100% { opacity: 1; transform: scale(1) rotate(0deg); filter: brightness(1) blur(0); }
+    }
+
+    @keyframes floatLoop {
+        0%, 100% { transform: translateY(0) rotate(-1deg); }
+        50% { transform: translateY(-10px) rotate(1deg); }
     }
 
     @keyframes summonRing {
@@ -115,6 +90,22 @@
         }
     }
 
+    @keyframes glowDrift1 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+        50% { transform: translate(10px, -8px) scale(1.12); opacity: 0.9; }
+    }
+
+    @keyframes glowDrift2 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+        50% { transform: translate(-12px, 10px) scale(0.9); opacity: 0.8; }
+    }
+
+    @keyframes glowFlicker3 {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        30% { opacity: 0.85; transform: scale(1.15); }
+        60% { opacity: 0.4; transform: scale(0.95); }
+    }
+
     @keyframes wordReveal {
         0% { opacity: 0; transform: translateY(70%); }
         100% { opacity: 1; transform: translateY(0); }
@@ -125,25 +116,14 @@
         100% { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes sectionReveal {
-        0% {
-            opacity: 0;
-            transform: translateY(24px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     /* Fundo Principal */
     --color-page: #120C08;
     --color-panel: #1D130D;
     --color-panel-alt: #281B12;
 
     /* Texto */
-    --color-text-primary: #F7F4F2;   /* Branco papel antigo */
-    --color-text-secondary: #BFAEA3; /* Marrom-bege suave para o autor */
+    --color-text-primary: #F7F4F2;
+    --color-text-secondary: #BFAEA3;
 
     /* Bordas */
     --color-border: #000000;
@@ -201,17 +181,10 @@
         @apply font-mono;
     }
 
-    /* Cursores de forma global */
-    a,
-    button,
-    input[type="submit"],
-    input[type="button"],
-    input[type="reset"],
-    select {
+    a, button, input[type="submit"], input[type="button"], select {
         cursor: pointer !important;
     }
 
-    /* Cursor de clique para os cards de livros e autores */
     .group:hover {
         cursor: pointer;
     }
