@@ -38,7 +38,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                     }}
                 />
 
-                <header className="relative text-center px-4">
+                <header className="relative text-center px-4 overflow-x-hidden sm:overflow-x-visible">
                     <div className="flex justify-center mb-6">
                         <div className="relative w-40 h-40 flex items-center justify-center">
                             <div className="absolute inset-0 m-auto w-52 h-52 bg-oak/25 rounded-full blur-3xl pointer-events-none animate-glow-1"></div>

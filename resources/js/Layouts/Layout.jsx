@@ -96,7 +96,7 @@ export default function Layout({ children, title, isHome = false }) {
 
             <Alert />
 
-            <div className="min-h-screen bg-page text-text-primary flex flex-col pt-1">
+            <div className="min-h-screen bg-page text-text-primary flex flex-col pt-1 overflow-hidden">
                 {isHome ? (
                     <div className="flex-1">{children}</div>
                 ) : (
