@@ -21,11 +21,13 @@ class CategoryService
         return $query->orderBy('name', 'asc')->paginate($perPage);
     }
 
-    public function listForCatalog(): Collection
+    public function listForCatalog(): LengthAwarePaginator
     {
-        return Category::withCount('books')
+        return Category::query()
+            ->has('books')
+            ->withCount('books')
             ->orderBy('name', 'asc')
-            ->get();
+            ->paginate(12);
     }
 
     public function listAll(): Collection
