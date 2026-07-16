@@ -32,7 +32,7 @@ class AdminStatsWidget extends StatsOverviewWidget
             Stat::make('Leitores', User::count())
                 ->description('Usuários cadastrados')
                 ->icon('heroicon-m-users')
-                ->color('success'),
+                ->color('primary'),
         ];
     }
 }

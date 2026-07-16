@@ -30,8 +30,8 @@ class MostRequestedBooksChart extends ChartWidget
                 [
                     'label' => 'Total de Empréstimos',
                     'data' => $data->values()->toArray(),
-                    'backgroundColor' => '#dc2626',
-                    'borderRadius' => 5,
+                    'backgroundColor' => '#BE123C',
+                    'borderRadius' => 0,
                 ],
             ],
             'labels' => $data->keys()->toArray(),

@@ -36,16 +36,30 @@ class ReaderPanelProvider extends PanelProvider
                     ->setIcon('heroicon-o-user')
             ])
             ->brandName('Bibliotek')
+
             ->colors([
-                'primary' => Color::Hex('#b91c1c'),
+                'primary' => Color::Hex('#BE123C'),
 
-                'gray' => Color::Slate,
+                'gray' => [
+                    50 => '#FDFBF7',
+                    100 => '#F4EFE6',
+                    200 => '#E6DBCC',
+                    300 => '#CFBEAA',
+                    400 => '#AB9B90',
+                    500 => '#856E61',
+                    600 => '#5C4B40',
+                    700 => '#3F322A',
+                    800 => '#2D1E16',
+                    900 => '#1D130D',
+                    950 => '#0C0805',
+                ],
 
-                'danger' => Color::Rose,
-                'info' => Color::Blue,
-                'success' => Color::Emerald,
-                'warning' => Color::Orange,
+                'danger'  => Color::Hex('#EF4444'),
+                'success' => Color::Hex('#D97706'),
+                'warning' => Color::Hex('#FBBF24'),
+                'info'    => Color::Hex('#3B82F6'),
             ])
+
             ->discoverResources(in: app_path('Filament/Reader/Resources'), for: 'App\Filament\Reader\Resources')
             ->discoverPages(in: app_path('Filament/Reader/Pages'), for: 'App\Filament\Reader\Pages')
             ->pages([

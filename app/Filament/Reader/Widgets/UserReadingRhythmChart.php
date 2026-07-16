@@ -30,8 +30,8 @@ class UserReadingRhythmChart extends ChartWidget
             'datasets' => [[
                 'label' => 'Livros por mês',
                 'data' => $data->values()->toArray(),
-                'borderColor' => '#dc2626',
-                'backgroundColor' => 'rgba(220, 38, 38, 0.1)',
+                'borderColor' => '#BE123C',
+                'backgroundColor' => 'rgba(190, 18, 60, 0.15)',
                 'tension' => 0.4,
             ]],
             'labels' => $labels,
