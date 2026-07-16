@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
 import BookCard from '../../Components/BookCard';
 
-export default function Books({ author, books, savedBookIds = [], loanedBookIds = [] }) {
+export default function BooksIndex({ author, books, savedBookIds = [], loanedBookIds = [] }) {
     return (
         <>
             <header className="mb-12 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 pb-6 border-b-2 border-border-hard">
@@ -47,4 +47,4 @@ export default function Books({ author, books, savedBookIds = [], loanedBookIds 
     );
 }
 
-Books.layout = page => <Layout children={page} title={`Livros de ${page?.props?.author?.name || 'Autor'}`} />
+BooksIndex.layout = page => <Layout children={page} title={`Livros de ${page?.props?.author?.name || 'Autor'}`} />

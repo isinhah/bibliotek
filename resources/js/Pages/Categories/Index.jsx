@@ -35,8 +35,11 @@ export default function Index({ categories }) {
                         </div>
 
                         <div className="flex justify-end relative z-10">
-                            <span className="text-xs font-mono font-bold text-text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-200">
-                                Explorar →
+                            <span className="text-xs font-mono font-bold text-text-secondary group-hover:text-primary transition-all duration-200 flex items-center gap-1">
+                                Explorar
+                                <span className="inline-block transform group-hover:translate-x-1 transition-transform duration-200">
+                                        →
+                                </span>
                             </span>
                         </div>
                     </Link>

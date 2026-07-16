@@ -57,7 +57,7 @@ class AuthorController extends Controller
             ? auth()->user()->loans()->whereIn('status', ['PENDING', 'ACTIVE', 'OVERDUE'])->pluck('book_id')->toArray()
             : [];
 
-        return Inertia::render('Authors/Books', [
+        return Inertia::render('Authors/BooksIndex', [
             'author' => $author,
             'books' => $author->books()->with('author')->get(),
             'savedBookIds' => auth()->check() ? auth()->user()->readingList()->pluck('books.id')->toArray() : [],

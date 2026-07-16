@@ -98,31 +98,25 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                         <Link
                             key={author.id}
                             href={`/authors/${author.id}/books`}
-                            className="group relative flex flex-col justify-between h-32 p-5 bg-panel-alt text-text-primary border-2 border-border-hard shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.8)] hover:border-primary hover:shadow-primary/20 transition-all duration-300 rounded-none overflow-hidden"
+                            className="group relative flex flex-col justify-between h-32 p-5 bg-panel-alt text-text-primary border-2 border-border-hard shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(225,29,72,0.15)] hover:border-primary transition-all duration-300 rounded-none overflow-hidden"
                         >
-                            <div
-                                className="absolute inset-0 opacity-[0.06] pointer-events-none"
-                                style={{
-                                    backgroundImage:
-                                        'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
-                                    backgroundSize: '12px 12px',
-                                }}
-                            />
-
                             <div className="space-y-1.5 min-w-0 relative z-10">
                                 <h3 className="font-mono font-black uppercase text-lg tracking-tight truncate capitalize group-hover:text-primary transition-colors duration-200">
                                     {author.name}
                                 </h3>
 
                                 <span className="inline-flex items-center text-xs font-mono font-bold text-text-secondary">
-                                    <span className="w-2 h-2 bg-oak border border-border-hard mr-2 rounded-none"></span>
-                                    {author.books_count} {author.books_count === 1 ? 'livro no acervo' : 'livros no acervo'}
+                                    <span className="w-1.5 h-1.5 bg-oak border border-border-hard mr-2 rounded-none group-hover:bg-primary group-hover:border-primary transition-colors duration-200"></span>
+                                    {author.books_count} {author.books_count === 1 ? 'obra catalogada' : 'obras catalogadas'}
                                 </span>
                             </div>
 
                             <div className="flex justify-end relative z-10">
-                                <span className="w-8 h-8 border-2 border-border-hard bg-panel text-text-primary flex items-center justify-center font-mono font-black text-xs group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[2px_2px_0px_0px_#000000] transition-all duration-200">
-                                    🪶
+                                <span className="text-xs font-mono font-bold text-text-secondary group-hover:text-primary transition-all duration-200 flex items-center gap-1">
+                                    Ver obras
+                                    <span className="inline-block transform group-hover:translate-x-1 transition-transform duration-200">
+                                        →
+                                    </span>
                                 </span>
                             </div>
                         </Link>
