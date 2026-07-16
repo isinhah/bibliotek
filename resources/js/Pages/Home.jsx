@@ -11,7 +11,7 @@ import {
 
 const MAX_HOME_CATEGORIES = 6;
 
-export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [], loanedBookIds = [] }) {
+export default function Home({ categoriesWithBooks, searchTerm, searchResults, savedBookIds = [], loanedBookIds = [], topBooks = [] }) {
     const { data, setData, get } = useForm({
         search: searchTerm || ''
     });
@@ -133,6 +133,51 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                     </section>
                 ) : (
                     <>
+                        {topBooks && topBooks.length > 0 && (
+                            <section className="mb-20">
+                                <SectionHeader
+                                    title="Os 10 Livros Mais Requisitados"
+                                    highlightIcon="bg-primary animate-pulse"
+                                />
+
+                                <Carousel
+                                    opts={{ align: 'start', loop: false }}
+                                    className="relative px-12 sm:px-14 -m-2 p-2 overflow-visible"
+                                >
+                                    <CarouselContent className="overflow-visible">
+                                        {topBooks.map((book, index) => (
+                                            <CarouselItem
+                                                key={book.id}
+                                                className="basis-full sm:basis-1/2 lg:basis-1/4 overflow-visible"
+                                            >
+                                                    <div className="py-2 pt-3 px-1 h-full overflow-visible relative group">
+                                                        <div className={`absolute top-2 -left-1 w-9 h-9 flex items-center justify-center font-minecraft text-[10px] font-black border-2 border-border-hard shadow-[2px_2px_0px_#000000] z-20
+
+                                                        transition-all duration-150 ease-in-out
+                                                        group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:shadow-[1px_1px_0px_#000000]
+                                                        group-active:translate-y-0.5 group-active:-translate-x-0.5 group-active:shadow-[3px_3px_0px_#000000]
+
+                                                        ${index < 3 ? 'bg-oak text-white animate-glass-shine' : 'bg-panel-alt text-text-secondary'}
+                                                    `}>
+                                                        #{index + 1}
+                                                    </div>
+
+                                                    <BookCard
+                                                        book={book}
+                                                        isSaved={savedBookIds.includes(book.id)}
+                                                        hasActiveLoan={loanedBookIds.includes(book.id)}
+                                                    />
+                                                </div>
+                                            </CarouselItem>
+                                        ))}
+                                    </CarouselContent>
+
+                                    <CarouselPrevious className="hidden sm:flex" />
+                                    <CarouselNext className="hidden sm:flex" />
+                                </Carousel>
+                            </section>
+                        )}
+
                         {categories.map(category => (
                             <section key={category.id} className="mb-16">
                                 <SectionHeader
@@ -225,12 +270,12 @@ function RevealWords({ text, startDelay = 0, highlightLast = false }) {
     );
 }
 
-function SectionHeader({ title, subtitle, action, capitalize = false }) {
+function SectionHeader({ title, subtitle, action, capitalize = false, highlightIcon = "bg-oak" }) {
     return (
         <div className="flex justify-between items-end mb-6 border-b-2 border-border pb-3">
             <div>
                 <h2 className={`text-xs sm:text-sm font-minecraft text-text-primary uppercase tracking-wider flex items-center gap-2.5 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)] ${capitalize ? 'capitalize' : ''}`}>
-                    <span className="w-2.5 h-2.5 bg-oak border border-border-hard flex-shrink-0 animate-pulse"></span>
+                    <span className={`w-2.5 h-2.5 border border-border-hard flex-shrink-0 ${highlightIcon}`}></span>
                     {title}
                 </h2>
                 {subtitle && (

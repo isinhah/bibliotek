@@ -22,7 +22,8 @@ class BookForm
                             ->directory('covers')
                             ->visibility('public')
                             ->imageEditor()
-                            ->placeholder('Clique ou arraste uma nova capa para o livro'),
+                            ->placeholder('Clique ou arraste uma nova capa para o livro')
+                            ->dehydrated(fn ($state) => filled($state)),
 
                         TextInput::make('title')
                             ->label('Título do Livro')
