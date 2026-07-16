@@ -72,6 +72,8 @@ export default function Layout({ children, title, isHome = false }) {
                                         href="/admin"
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        aria-label="Sair da Conta"
+                                        title="Sair da Conta"
                                         className="inline-flex items-center justify-center gap-2 border-2 border-border-hard bg-panel-alt text-text-primary px-3 h-9 text-xs font-bold uppercase tracking-wide shadow-hard hover:bg-secondary hover:text-secondary-foreground transition-all duration-150 rounded-none shrink-0 select-none"
                                     >
                                         <span className="w-1.5 h-1.5 bg-warning border border-border-hard rounded-none shrink-0 animate-pulse" />
@@ -84,6 +86,7 @@ export default function Layout({ children, title, isHome = false }) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Editar Perfil"
+                                    title="Editar Perfil"
                                     className="border-2 border-border-hard bg-panel-alt text-text-primary h-9 w-9 transition-colors duration-150 shadow-hard hover:bg-secondary hover:text-secondary-foreground flex items-center justify-center rounded-none shrink-0"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
@@ -95,7 +98,8 @@ export default function Layout({ children, title, isHome = false }) {
                                     href="/logout"
                                     method="post"
                                     as="button"
-                                    aria-label="Sair"
+                                    aria-label="Sair da Conta"
+                                    title="Sair da Conta"
                                     className="border-2 border-border-hard bg-panel-alt text-text-primary h-9 w-9 transition-colors duration-150 shadow-hard hover:bg-danger hover:text-danger-foreground flex items-center justify-center rounded-none shrink-0"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
