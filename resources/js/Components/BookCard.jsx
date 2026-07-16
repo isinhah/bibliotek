@@ -1,5 +1,16 @@
 import { useForm, usePage, Link } from '@inertiajs/react';
 import { Button } from "@/Components/ui/Button";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/Components/ui/AlertDialog";
 
 export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
     const { auth } = usePage().props || {};
@@ -14,8 +25,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
         readingListForm.post(`/reading-list/toggle/${book.id}`, { preserveScroll: true });
     };
 
-    const handleLoan = (e) => {
-        e.preventDefault();
+    const handleConfirmLoan = () => {
         if (book.stock > 0 && !hasActiveLoan) {
             loanForm.post(`/books/${book.id}/loan`, { preserveScroll: true });
         }
@@ -36,6 +46,8 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
                     <a
                         href={`/admin/books/${book.id}/edit`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="bg-panel border-2 border-border-hard text-text-primary text-xs font-mono font-bold px-2.5 py-1.5 rounded-none shadow-hard block hover:bg-panel-alt"
                     >
                         Estoque
@@ -79,7 +91,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                     ) : (
                         <Link
                             href="/login"
-                            className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-hard w-full"
+                            className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-hard w-full text-center"
                         >
                             Guardar
                         </Link>
@@ -88,36 +100,53 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
 
                 <div className="relative z-10 w-full flex">
                     {isAuthenticated ? (
-                        <form
-                            onSubmit={handleLoan}
-                            className={`m-0 w-full flex ${isLoanButtonDisabled ? 'cursor-not-allowed' : ''}`}
-                        >
-                            <Button
-                                type="submit"
-                                variant={hasActiveLoan ? "secondary" : (book.stock > 0 ? "primary" : "outline")}
-                                disabled={isLoanButtonDisabled}
-                                className={`w-full text-[10px] sm:text-xs px-2 h-10 ${
-                                    isLoanButtonDisabled
-                                        ? 'opacity-50 cursor-not-allowed'
-                                        : ''
-                                }`}
-                            >
-                                {loanForm.processing ? (
-                                    'Processando...'
-                                ) : hasActiveLoan ? (
-                                    'Emprestado'
-                                ) : book.stock > 0 ? (
-                                    'Empréstimo'
-                                ) : (
-                                    'Esgotado'
-                                )}
-                            </Button>
-                        </form>
+                        book.stock > 0 && !hasActiveLoan ? (
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <Button
+                                        variant="primary"
+                                        className="w-full text-[10px] sm:text-xs px-2 h-10"
+                                    >
+                                        Empréstimo
+                                    </Button>
+                                </AlertDialogTrigger>
+
+                                <AlertDialogContent className="max-w-md">
+                                    <AlertDialogHeader className="flex flex-col items-center justify-center text-center w-full">
+                                        <AlertDialogTitle className="text-center w-full">
+                                            Confirmar Empréstimo?
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription className="text-center w-full leading-relaxed">
+                                            Você deseja pedir emprestado o livro <span className="text-primary capitalize">"{book.title}"</span>?
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+
+                                    <AlertDialogFooter className="grid grid-cols-2 gap-3 w-full mt-4 sm:flex-row sm:justify-stretch">
+                                        <AlertDialogCancel className="w-full m-0">
+                                            Cancelar
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction onClick={handleConfirmLoan} className="w-full m-0">
+                                            Confirmar
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        ) : (
+                            <div className="w-full">
+                                <Button
+                                    disabled
+                                    variant={hasActiveLoan ? "secondary" : "outline"}
+                                    className="w-full text-[10px] sm:text-xs px-2 h-10 opacity-50 cursor-not-allowed"
+                                >
+                                    {hasActiveLoan ? 'Emprestado' : 'Esgotado'}
+                                </Button>
+                            </div>
+                        )
                     ) : (
                         book.stock > 0 ? (
                             <Link
                                 href="/login"
-                                className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard w-full"
+                                className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard w-full text-center"
                             >
                                 Empréstimo
                             </Link>
@@ -125,7 +154,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                             <Button
                                 disabled
                                 variant="outline"
-                                className="w-full text-[10px] sm:text-xs px-2 h-10 opacity-50 cursor-not-allowed pointer-events-none"
+                                className="w-full text-[10px] sm:text-xs px-2 h-10 opacity-50 cursor-not-allowed"
                             >
                                 Esgotado
                             </Button>
