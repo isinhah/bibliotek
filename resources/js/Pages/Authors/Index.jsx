@@ -40,14 +40,14 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
 
             <div className="mb-14 space-y-6">
                 <div className="w-full">
-                    <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
-                        <div className="relative flex-1">
+                    <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl sm:items-stretch">
+                        <div className="relative flex-1 box-border">
                             <input
                                 type="text"
                                 value={data.search}
                                 onChange={e => setData('search', e.target.value)}
                                 placeholder="Pesquisar autor por nome..."
-                                className="w-full font-mono text-xs font-semibold bg-panel-alt text-text-primary border-2 border-border-hard rounded-none h-10 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary focus:border-border-hard shadow-hard placeholder:text-text-secondary/50"
+                                className="w-full font-mono text-xs font-semibold bg-panel-alt text-text-primary border-2 border-border-hard rounded-none h-10 pl-4 pr-10 outline-none focus:border-border-hard shadow-hard placeholder:text-text-secondary/50 box-border"
                             />
                             {data.search && (
                                 <button
@@ -59,7 +59,8 @@ export default function Index({ authors, searchTerm, selectedLetter, alphabet })
                                 </button>
                             )}
                         </div>
-                        <Button type="submit" variant="primary" className="h-10">
+
+                        <Button type="submit" variant="primary" className="h-10 box-border">
                             Buscar
                         </Button>
                     </form>
