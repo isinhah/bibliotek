@@ -33,15 +33,21 @@ export default function Index({ categories }) {
                             href={`/categories/${category.id}/books`}
                             className="group relative flex flex-col justify-between h-32 p-5 bg-panel-alt text-text-primary border-2 border-border-hard shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(225,29,72,0.15)] hover:border-primary transition-all duration-300 rounded-none overflow-hidden"
                         >
-                            <div className="space-y-1.5 min-w-0 relative z-10">
-                                <h3 className="font-mono font-black uppercase text-lg tracking-tight truncate capitalize group-hover:text-primary transition-colors duration-200">
-                                    {category.name}
-                                </h3>
+                            <div className="flex items-start gap-4 min-w-0 relative z-10">
+                                <div className="w-10 h-10 shrink-0 flex items-center justify-center text-xl select-none transform group-hover:rotate-12 transition-transform duration-200 ease-out">
+                                    🗝️
+                                </div>
 
-                                <span className="inline-flex items-center text-xs font-mono font-bold text-text-secondary">
-                                    <span className="w-1.5 h-1.5 bg-oak border border-border-hard mr-2 rounded-none group-hover:bg-primary transition-colors duration-200"></span>
-                                    {category.books_count} {category.books_count === 1 ? 'livro catalogado' : 'livros catalogados'}
-                                </span>
+                                <div className="min-w-0 flex-1 py-0.5">
+                                    <h3 className="font-mono font-black uppercase text-base tracking-tight truncate capitalize group-hover:text-primary transition-colors duration-200">
+                                        {category.name}
+                                    </h3>
+
+                                    <span className="inline-flex items-center text-xs font-mono font-bold text-text-secondary mt-1">
+                                        <span className="w-1.5 h-1.5 bg-oak border border-border-hard mr-2 rounded-none group-hover:bg-primary transition-colors duration-200"></span>
+                                        {category.books_count} {category.books_count === 1 ? 'livro catalogado' : 'livros catalogados'}
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="flex justify-end relative z-10">
