@@ -179,15 +179,15 @@ function CategoryCarousel({ books, savedBookIds, loanedBookIds }) {
     return (
         <Carousel
             opts={{ align: 'start', loop: false }}
-            className="relative px-12 sm:px-14"
+            className="relative px-12 sm:px-14 -m-2 p-2 overflow-visible"
         >
-            <CarouselContent>
+            <CarouselContent className="overflow-visible">
                 {books.map(book => (
                     <CarouselItem
                         key={book.id}
-                        className="basis-full sm:basis-1/2 lg:basis-1/4"
+                        className="basis-full sm:basis-1/2 lg:basis-1/4 overflow-visible"
                     >
-                        <div className="py-2 h-full">
+                        <div className="py-2 px-1 h-full overflow-visible">
                             <BookCard
                                 book={book}
                                 isSaved={savedBookIds.includes(book.id)}

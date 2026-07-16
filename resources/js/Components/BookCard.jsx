@@ -30,7 +30,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
     const isLoanButtonDisabled = loanForm.processing || hasActiveLoan || book.stock <= 0;
 
     return (
-        <div className="group bg-panel-alt border-2 border-border-hard rounded-none p-4 sm:p-5 flex flex-col justify-between hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_#000000] shadow-hard transition-all duration-200 h-full relative">
+        <div className="group bg-panel-alt border-2 border-border-hard rounded-none p-4 sm:p-5 flex flex-col justify-between shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(225,29,72,0.15)] hover:border-primary transition-all duration-300 h-full relative">
 
             {isAdmin && (
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
@@ -53,7 +53,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                 </div>
 
                 <div className="flex-1 min-w-0 py-1">
-                    <h3 className="font-mono font-black text-text-primary group-hover:text-oak transition-colors duration-200 text-base leading-snug tracking-tight mb-1 capitalize line-clamp-2" title={book.title}>
+                    <h3 className="font-mono font-black text-text-primary group-hover:text-primary transition-colors duration-200 text-base leading-snug tracking-tight mb-1 capitalize line-clamp-2" title={book.title}>
                         {book.title}
                     </h3>
                     <p className="text-xs font-mono font-bold text-text-secondary truncate capitalize">
