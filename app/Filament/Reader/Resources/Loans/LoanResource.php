@@ -25,7 +25,7 @@ class LoanResource extends Resource
     protected static ?string $modelLabel = 'Meu Empréstimo';
     protected static ?string $pluralModelLabel = 'Empréstimos';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Minha Conta';
+    protected static string|UnitEnum|null $navigationGroup = 'Gerenciamento';
 
     public static function getEloquentQuery(): Builder
     {

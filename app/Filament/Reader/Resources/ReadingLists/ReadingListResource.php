@@ -28,7 +28,7 @@ class ReadingListResource extends Resource
     protected static ?string $modelLabel = 'Livro Salvo';
     protected static ?string $pluralModelLabel = 'Ler mais tarde';
 
-    protected static string|null|UnitEnum $navigationGroup = 'Minha Conta';
+    protected static string|null|UnitEnum $navigationGroup = 'Gerenciamento';
 
     protected static ?string $recordTitleAttribute = 'name';
 

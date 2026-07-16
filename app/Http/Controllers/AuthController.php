@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -28,8 +29,7 @@ class AuthController extends Controller
     {
         try {
             $this->authService->attemptLogin($request->toDTO());
-
-            return redirect()->intended('/');
+            return redirect('/');
         } catch (Exception $e) {
             return back()
                 ->withErrors(['email' => $e->getMessage()])
@@ -59,9 +59,13 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(): RedirectResponse
+    public function logout(Request $request): RedirectResponse
     {
         $this->authService->logoutUser();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
 
         return redirect()->route('home');
     }

@@ -12,7 +12,10 @@ export default function Register() {
 
     function submit(e) {
         e.preventDefault()
-        post('/register')
+
+        post('/register', {
+            preserveScroll: false,
+        })
     }
 
     return (

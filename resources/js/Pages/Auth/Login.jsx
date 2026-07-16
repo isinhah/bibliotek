@@ -10,8 +10,9 @@ export default function Login() {
 
     function submit(e) {
         e.preventDefault()
+
         post('/login', {
-            preserveScroll: true
+            preserveScroll: false
         })
     }
 
