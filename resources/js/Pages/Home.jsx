@@ -21,6 +21,11 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
         get('/', { preserveState: true });
     };
 
+    const handleClearSearch = () => {
+        setData('search', '');
+        get('/?search=', { preserveState: true });
+    };
+
     const categories = Array.isArray(categoriesWithBooks)
         ? categoriesWithBooks.slice(0, MAX_HOME_CATEGORIES)
         : [];
@@ -77,18 +82,31 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                 </header>
 
                 <div className="relative mt-10 max-w-xl mx-auto px-4">
-                    <form onSubmit={handleSearch} className="flex items-stretch gap-0 border-2 border-border-hard bg-panel-alt shadow-hard focus-within:shadow-none focus-within:translate-x-1 focus-within:translate-y-1 focus-within:border-primary transition-all duration-150 rounded-xl overflow-hidden">
-                        <input
-                            type="text"
-                            value={data.search}
-                            onChange={e => setData('search', e.target.value)}
-                            placeholder="Pesquisar por título, autor..."
-                            className="w-full px-4 py-3.5 bg-transparent text-sm font-mono text-text-primary placeholder-text-secondary/50 focus:outline-none"
-                        />
+                    <form onSubmit={handleSearch} className="flex items-stretch gap-0 border-2 border-border-hard bg-panel-alt shadow-hard rounded-none overflow-hidden">
+                        <div className="relative flex-1 flex items-center">
+                            <input
+                                type="text"
+                                value={data.search}
+                                onChange={e => setData('search', e.target.value)}
+                                placeholder="Pesquisar por título, autor..."
+                                className="w-full px-4 py-3.5 pr-10 bg-transparent text-sm font-mono text-text-primary placeholder-text-secondary/50 focus:outline-none focus:ring-0"
+                            />
+
+                            {data.search && (
+                                <button
+                                    type="button"
+                                    onClick={handleClearSearch}
+                                    className="absolute right-3 text-text-secondary hover:text-danger font-mono font-bold text-xs select-none"
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </div>
+
                         <button
                             type="submit"
                             aria-label="Pesquisar"
-                            className="shrink-0 px-5 bg-primary text-primary-foreground border-l-2 border-border-hard hover:bg-primary/90 active:translate-y-0.5 transition-colors flex items-center justify-center"
+                            className="shrink-0 px-5 bg-primary text-primary-foreground border-l-2 border-border-hard hover:bg-primary/90 active:translate-x-0.5 active:translate-y-0.5 transition-colors flex items-center justify-center"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
