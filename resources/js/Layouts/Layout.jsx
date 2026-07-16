@@ -23,6 +23,7 @@ export default function Layout({ children, title, isHome = false }) {
                         </Link>
 
                         <div className="hidden md:flex items-center gap-6 text-xs font-bold uppercase tracking-wide text-text-secondary">
+
                             <Link href="/categories" className="hover:text-text-primary transition-colors duration-150">
                                 Categorias
                             </Link>
@@ -34,21 +35,25 @@ export default function Layout({ children, title, isHome = false }) {
                                 <>
                                     <span className="text-border-hard/20 select-none">|</span>
 
-                                    <Link
+                                    <a
                                         href="/reader/loans"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 hover:text-text-primary transition-colors duration-150"
                                     >
                                         <span className="w-2 h-2 bg-oak border border-border-hard rounded-none shrink-0" />
                                         Meus Empréstimos
-                                    </Link>
+                                    </a>
 
-                                    <Link
-                                        href="/reader/saved"
+                                    <a
+                                        href="/reader/reading-list"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 hover:text-text-primary transition-colors duration-150"
                                     >
                                         <span className="w-2 h-2 bg-primary border border-border-hard rounded-none shrink-0" />
                                         Lista de Leitura
-                                    </Link>
+                                    </a>
                                 </>
                             )}
                         </div>
@@ -64,6 +69,8 @@ export default function Layout({ children, title, isHome = false }) {
                                 {isAdmin && (
                                     <a
                                         href="/admin"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="inline-flex items-center justify-center gap-2 border-2 border-border-hard bg-panel-alt text-text-primary px-3 h-9 text-xs font-bold uppercase tracking-wide shadow-hard hover:bg-secondary hover:text-secondary-foreground transition-all duration-150 rounded-none shrink-0 select-none"
                                     >
                                         <span className="w-1.5 h-1.5 bg-warning border border-border-hard rounded-none shrink-0 animate-pulse" />
