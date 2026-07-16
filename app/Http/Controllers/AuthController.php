@@ -32,7 +32,10 @@ class AuthController extends Controller
             return redirect('/');
         } catch (Exception $e) {
             return back()
-                ->withErrors(['email' => $e->getMessage()])
+                ->withErrors([
+                    'email'    => $e->getMessage(),
+                    'password' => 'Verifique a senha inserida.'
+                ])
                 ->withInput();
         }
     }
@@ -52,8 +55,7 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return back()
                 ->withErrors([
-                    'email' => 'Não foi possível realizar o cadastro. Tente novamente.',
-                    'error_detail' => $e->getMessage()
+                    'email' => $e->getMessage()
                 ])
                 ->withInput();
         }

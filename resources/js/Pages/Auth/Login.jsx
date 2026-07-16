@@ -10,9 +10,8 @@ export default function Login() {
 
     function submit(e) {
         e.preventDefault()
-
         post('/login', {
-            preserveScroll: false
+            preserveScroll: true
         })
     }
 
@@ -23,7 +22,7 @@ export default function Login() {
                 Acesse sua conta
             </h2>
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} noValidate>
                 <div className="mb-5">
                     <label className="block text-text-secondary text-xs font-bold uppercase tracking-wider mb-2">
                         E-mail
@@ -36,7 +35,6 @@ export default function Login() {
                         className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
                             errors.email ? 'border-danger' : 'border-border-hard'
                         }`}
-                        required
                     />
                     {errors.email && (
                         <span className="text-danger text-xs mt-1.5 block font-bold">
@@ -57,7 +55,6 @@ export default function Login() {
                         className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
                             errors.password ? 'border-danger' : 'border-border-hard'
                         }`}
-                        required
                     />
 
                     {errors.password && (

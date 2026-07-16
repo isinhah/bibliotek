@@ -25,7 +25,7 @@ export default function Register() {
                 Crie sua conta
             </h2>
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} noValidate>
                 <div className="mb-5">
                     <label className="block text-text-secondary text-xs font-bold uppercase tracking-wider mb-2">
                         Nome Completo
@@ -34,9 +34,15 @@ export default function Register() {
                         type="text"
                         value={data.name}
                         onChange={e => setData('name', e.target.value)}
-                        className="w-full px-4 py-3 bg-panel border-2 border-border-hard text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all"
-                        required
+                        className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
+                            errors.name ? 'border-danger' : 'border-border-hard'
+                        }`}
                     />
+                    {errors.name && (
+                        <span className="text-danger text-xs mt-1.5 block font-bold">
+                            ✕ {errors.name}
+                        </span>
+                    )}
                 </div>
 
                 <div className="mb-5">
@@ -50,7 +56,6 @@ export default function Register() {
                         className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
                             errors.email ? 'border-danger' : 'border-border-hard'
                         }`}
-                        required
                     />
                     {errors.email && (
                         <span className="text-danger text-xs mt-1.5 block font-bold">
@@ -70,7 +75,6 @@ export default function Register() {
                         className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
                             errors.password ? 'border-danger' : 'border-border-hard'
                         }`}
-                        required
                     />
                     {errors.password && (
                         <span className="text-danger text-xs mt-1.5 block font-bold">
@@ -87,9 +91,15 @@ export default function Register() {
                         type="password"
                         value={data.password_confirmation}
                         onChange={e => setData('password_confirmation', e.target.value)}
-                        className="w-full px-4 py-3 bg-panel border-2 border-border-hard text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all"
-                        required
+                        className={`w-full px-4 py-3 bg-panel border-2 text-sm text-text-primary outline-none focus:ring-2 focus:ring-primary focus:border-border-hard rounded-none transition-all ${
+                            errors.password_confirmation ? 'border-danger' : 'border-border-hard'
+                        }`}
                     />
+                    {errors.password_confirmation && (
+                        <span className="text-danger text-xs mt-1.5 block font-bold">
+                            ✕ {errors.password_confirmation}
+                        </span>
+                    )}
                 </div>
 
                 <Button
