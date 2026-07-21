@@ -1,6 +1,11 @@
-import { Link, useForm } from '@inertiajs/react';
+import {Link, useForm} from '@inertiajs/react';
 import Layout from '../Layouts/Layout';
 import BookCard from '../Components/BookCard';
+import BookGrid from '../Components/BookGrid';
+import SectionHeader from '../Components/SectionHeader';
+import EmptyState from '../Components/EmptyState';
+import CategoryCarousel from '../Components/CategoryCarousel';
+import RevealWords from '../Components/RevealWords';
 import {
     Carousel,
     CarouselContent,
@@ -8,6 +13,7 @@ import {
     CarouselPrevious,
     CarouselNext,
 } from '@/Components/ui/carousel.jsx';
+
 
 const MAX_HOME_CATEGORIES = 6;
 
@@ -215,98 +221,6 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                 )}
             </div>
         </>
-    );
-}
-
-function CategoryCarousel({ books, savedBookIds, loanedBookIds }) {
-    if (!books || books.length === 0) return null;
-
-    return (
-        <Carousel
-            opts={{ align: 'start', loop: false }}
-            className="relative px-12 sm:px-14 -m-2 p-2 overflow-visible"
-        >
-            <CarouselContent className="overflow-visible">
-                {books.map(book => (
-                    <CarouselItem
-                        key={book.id}
-                        className="basis-full sm:basis-1/2 lg:basis-1/4 overflow-visible"
-                    >
-                        <div className="py-2 px-1 h-full overflow-visible">
-                            <BookCard
-                                book={book}
-                                isSaved={savedBookIds.includes(book.id)}
-                                hasActiveLoan={loanedBookIds.includes(book.id)}
-                            />
-                        </div>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-
-            <CarouselPrevious className="hidden sm:flex" />
-            <CarouselNext className="hidden sm:flex" />
-        </Carousel>
-    );
-}
-
-function RevealWords({ text, startDelay = 0, highlightLast = false }) {
-    const words = text.split(' ');
-    return (
-        <span className="inline-block">
-            {words.map((word, i) => {
-                const isLast = highlightLast && i === words.length - 1;
-                return (
-                    <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.28em] last:mr-0">
-                        <span
-                            className={`inline-block animate-word-reveal ${isLast ? 'text-primary' : ''}`}
-                            style={{ animationDelay: `${startDelay + i * 0.09}s` }}
-                        >
-                            {word}
-                        </span>
-                    </span>
-                );
-            })}
-        </span>
-    );
-}
-
-function SectionHeader({ title, subtitle, action, capitalize = false, highlightIcon = "bg-oak" }) {
-    return (
-        <div className="flex justify-between items-end mb-6 border-b-2 border-border pb-3">
-            <div>
-                <h2 className={`text-xs sm:text-sm font-minecraft text-text-primary uppercase tracking-wider flex items-center gap-2.5 [text-shadow:2px_2px_0_rgba(0,0,0,0.8)] ${capitalize ? 'capitalize' : ''}`}>
-                    <span className={`w-2.5 h-2.5 border border-border-hard flex-shrink-0 ${highlightIcon}`}></span>
-                    {title}
-                </h2>
-                {subtitle && (
-                    <p className="text-xs text-text-secondary mt-1.5 font-mono font-bold">{subtitle}</p>
-                )}
-            </div>
-            {action}
-        </div>
-    );
-}
-
-function EmptyState({ text }) {
-    return (
-        <div className="text-center py-16 bg-panel-alt border-2 border-border-hard shadow-hard max-w-xl mx-auto rounded-xl">
-            <p className="text-text-secondary font-mono font-bold text-sm">{text}</p>
-        </div>
-    );
-}
-
-function BookGrid({ books, savedBookIds, loanedBookIds }) {
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {books && books.map(book => (
-                <BookCard
-                    key={book.id}
-                    book={book}
-                    isSaved={savedBookIds.includes(book.id)}
-                    hasActiveLoan={loanedBookIds.includes(book.id)}
-                />
-            ))}
-        </div>
     );
 }
 
