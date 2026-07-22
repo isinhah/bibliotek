@@ -39,7 +39,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
 
     return (
         <>
-            <div className="relative bg-page border-b-2 border-border-hard overflow-hidden pt-20 pb-24 bg-[radial-gradient(circle_at_center,rgba(225,29,72,0.04)_0%,transparent_70%)]">
+            <div className="relative bg-page border-b-2 border-border-hard overflow-hidden pt-20 pb-24 bg-[radial-gradient(circle_at_center,rgba(225,29,72,0.07)_0%,transparent_65%)]">
                 <div
                     className="absolute inset-0 opacity-[0.06] pointer-events-none"
                     style={{
@@ -52,9 +52,9 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                 <header className="relative text-center px-4 overflow-x-hidden sm:overflow-x-visible">
                     <div className="flex justify-center mb-6">
                         <div className="relative w-40 h-40 flex items-center justify-center">
-                            <div className="absolute inset-0 m-auto w-52 h-52 bg-oak/25 rounded-full blur-3xl pointer-events-none animate-glow-1"></div>
-                            <div className="absolute inset-0 m-auto w-44 h-44 bg-primary/20 rounded-full blur-3xl pointer-events-none animate-glow-2"></div>
-                            <div className="absolute inset-0 m-auto w-28 h-28 bg-oak-light/25 rounded-full blur-2xl pointer-events-none animate-glow-3"></div>
+                            <div className="absolute inset-0 m-auto w-56 h-56 bg-oak/30 rounded-full blur-3xl pointer-events-none animate-glow-1"></div>
+                            <div className="absolute inset-0 m-auto w-48 h-48 bg-primary/25 rounded-full blur-3xl pointer-events-none animate-glow-2"></div>
+                            <div className="absolute inset-0 m-auto w-28 h-28 bg-oak-light/30 rounded-full blur-2xl pointer-events-none animate-glow-3"></div>
 
                             <span className="animate-summon-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-oak-light pointer-events-none"></span>
 
@@ -77,11 +77,18 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                         </div>
                     </div>
 
-                    <h1 className="font-minecraft text-2xl sm:text-3xl md:text-4xl text-text-primary uppercase max-w-2xl mx-auto leading-relaxed [text-shadow:3px_3px_0_rgba(0,0,0,0.7)]">
-                        <RevealWords text="Encante a sua mente" startDelay={0.35} />
-                        <br className="hidden sm:block" />
-                        <RevealWords text="com uma nova leitura" startDelay={0.35 + 0.35} highlightLast />
-                    </h1>
+                    <div className="relative max-w-2xl mx-auto">
+                        <span className="hidden sm:block absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-oak-light/50"></span>
+                        <span className="hidden sm:block absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-oak-light/50"></span>
+                        <span className="hidden sm:block absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-oak-light/50"></span>
+                        <span className="hidden sm:block absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-oak-light/50"></span>
+
+                        <h1 className="font-minecraft text-2xl sm:text-3xl md:text-4xl text-text-primary uppercase leading-relaxed [text-shadow:3px_3px_0_rgba(0,0,0,0.7)]">
+                            <RevealWords text="Encante a sua mente" startDelay={0.35} />
+                            <br className="hidden sm:block" />
+                            <RevealWords text="com uma nova leitura" startDelay={0.35 + 0.35} highlightLast />
+                        </h1>
+                    </div>
                     <p className="text-text-secondary mt-5 max-w-md mx-auto text-sm sm:text-base font-semibold animate-fade-in-up" style={{ animationDelay: '1.3s' }}>
                         Explore o acervo da Bibliotek e encontre sua próxima leitura.
                     </p>
@@ -156,8 +163,8 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                                                 key={book.id}
                                                 className="basis-full sm:basis-1/2 lg:basis-1/4 overflow-visible"
                                             >
-                                                    <div className="py-2 pt-3 px-1 h-full overflow-visible relative group">
-                                                        <div className={`absolute top-2 -left-1 w-9 h-9 flex items-center justify-center font-minecraft text-[10px] font-black border-2 border-border-hard shadow-[2px_2px_0px_#000000] z-20
+                                                <div className="py-2 pt-3 px-1 h-full overflow-visible relative group">
+                                                    <div className={`absolute top-2 -left-1 w-9 h-9 flex items-center justify-center font-minecraft text-[10px] font-black border-2 border-border-hard shadow-[2px_2px_0px_#000000] z-20
 
                                                         transition-all duration-150 ease-in-out
                                                         group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:shadow-[1px_1px_0px_#000000]
