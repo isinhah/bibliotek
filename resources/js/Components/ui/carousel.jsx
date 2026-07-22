@@ -29,7 +29,6 @@ function Carousel({
         {
             ...opts,
             axis: orientation === "horizontal" ? "x" : "y",
-            // Drag/swipe ligado por padrão — essencial pro mobile
             dragFree: false,
             containScroll: "trimSnaps",
         },

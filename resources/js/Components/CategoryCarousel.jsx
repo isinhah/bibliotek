@@ -13,7 +13,7 @@ export default function CategoryCarousel({ books, savedBookIds = [], loanedBookI
     return (
         <Carousel
             opts={{ align: 'start', loop: false }}
-            className="relative px-12 sm:px-14 -m-2 p-2 overflow-visible"
+            className="relative px-8 sm:px-10 -m-2 p-2 overflow-visible"
         >
             <CarouselContent className="overflow-visible">
                 {books.map(book => (

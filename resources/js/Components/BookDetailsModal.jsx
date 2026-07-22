@@ -32,7 +32,6 @@ export default function BookDetailsModal({ book, isOpen, onClose }) {
                 </AlertDialogHeader>
 
                 <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start my-2">
-                    {/* Capa */}
                     <div className="w-28 h-40 bg-panel rounded-none flex-shrink-0 border-2 border-border-hard flex items-center justify-center shadow-hard relative">
                         <div className="w-full h-full overflow-hidden">
                             {coverUrl ? (

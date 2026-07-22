@@ -129,7 +129,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 py-12">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {searchResults ? (
                     <section>
                         <SectionHeader title={`Resultados para: "${searchTerm}"`} />
@@ -155,7 +155,7 @@ export default function Home({ categoriesWithBooks, searchTerm, searchResults, s
 
                                 <Carousel
                                     opts={{ align: 'start', loop: false }}
-                                    className="relative px-12 sm:px-14 -m-2 p-2 overflow-visible"
+                                    className="relative px-8 sm:px-10 -m-2 p-2 overflow-visible"
                                 >
                                     <CarouselContent className="overflow-visible">
                                         {topBooks.map((book, index) => (

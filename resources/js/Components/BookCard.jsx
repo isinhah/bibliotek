@@ -41,7 +41,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
         : null;
 
     return (
-        <div className="group bg-panel-alt border-2 border-border-hard rounded-none p-4 sm:p-5 flex flex-col justify-between shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(225,29,72,0.15)] hover:border-primary transition-all duration-300 h-full relative">
+        <div className="group bg-panel-alt border-2 border-border-hard rounded-none p-3.5 sm:p-5 flex flex-col justify-between shadow-hard hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(225,29,72,0.15)] hover:border-primary transition-all duration-300 h-full relative w-full">
 
             {isAdmin && (
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
@@ -49,7 +49,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                         href={`/admin/books/${book.id}/edit`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-panel border-2 border-border-hard text-text-primary text-xs font-mono font-bold px-2.5 py-1.5 rounded-none shadow-hard block hover:bg-panel-alt"
+                        className="bg-panel border-2 border-border-hard text-text-primary text-[10px] sm:text-xs font-mono font-bold px-2 py-1 shadow-hard block hover:bg-panel-alt"
                     >
                         Estoque
                     </a>
@@ -58,7 +58,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
 
             <div
                 onClick={() => setSelectedBook(book)}
-                className="flex flex-col sm:flex-row gap-4 mb-4 items-center sm:items-start text-left min-h-[144px] cursor-pointer"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 items-center sm:items-start text-center sm:text-left cursor-pointer min-w-0"
                 title="Clique para ver os detalhes"
             >
                 <div className="w-24 h-36 bg-panel rounded-none flex-shrink-0 border-2 border-border-hard flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-300 relative shadow-hard">
@@ -69,35 +69,35 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                     )}
 
                     {book.rating && (
-                        <div className="absolute -bottom-2 -right-2 bg-primary border-2 border-border-hard text-[11px] font-mono font-black px-2 py-1 shadow-hard text-primary-foreground flex items-center gap-1 rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                        <div className="absolute -bottom-2 -right-2 bg-primary border-2 border-border-hard text-[10px] sm:text-[11px] font-mono font-black px-1.5 py-0.5 sm:px-2 sm:py-1 shadow-hard text-primary-foreground flex items-center gap-1">
                             <span className="text-xs leading-none">⭐</span>
                             <span className="leading-none">{Number(book.rating).toFixed(1)}</span>
                         </div>
                     )}
                 </div>
 
-                <div className="flex-1 min-w-0 py-1 w-full flex flex-col justify-between h-full">
+                <div className="flex-1 min-w-0 w-full flex flex-col justify-between py-0.5">
                     <div>
                         <h3
-                            className="font-mono font-black text-text-primary group-hover:text-primary transition-colors duration-200 text-sm sm:text-base md:text-[15px] lg:text-base leading-snug tracking-tight mb-1 capitalize line-clamp-2 break-words"
+                            className="font-mono font-black text-text-primary group-hover:text-primary transition-colors duration-200 text-sm sm:text-base leading-snug tracking-tight mb-1 capitalize line-clamp-2 break-words"
                             title={book.title}
                         >
                             {book.title}
                         </h3>
-                        <p className="text-[11px] sm:text-xs font-mono font-bold text-primary/80 uppercase tracking-wide truncate capitalize mb-2 flex items-center gap-1">
+                        <p className="text-[11px] sm:text-xs font-mono font-bold text-primary/80 uppercase tracking-wide truncate capitalize mb-2 flex items-center justify-center sm:justify-start gap-1">
                             <span className="opacity-60">✎</span>
                             {book.author?.name || book.author_name || 'Autor desconhecido'}
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 mt-auto pt-1">
                         {book.publish_date && (
-                            <span className="bg-panel border border-border-hard text-[9px] sm:text-[10px] font-mono font-bold px-1.5 py-0.5 text-text-secondary flex items-center gap-1 hover:border-primary hover:text-primary transition-colors duration-200">
+                            <span className="bg-panel border border-border-hard text-[9px] sm:text-[10px] font-mono font-bold px-1.5 py-0.5 text-text-secondary flex items-center gap-1 hover:border-primary hover:text-primary transition-colors">
                                 <span className="opacity-70">📅</span>{book.publish_date}
                             </span>
                         )}
                         {book.pages && (
-                            <span className="bg-panel border border-border-hard text-[9px] sm:text-[10px] font-mono font-bold px-1.5 py-0.5 text-text-secondary flex items-center gap-1 hover:border-primary hover:text-primary transition-colors duration-200">
+                            <span className="bg-panel border border-border-hard text-[9px] sm:text-[10px] font-mono font-bold px-1.5 py-0.5 text-text-secondary flex items-center gap-1 hover:border-primary hover:text-primary transition-colors">
                                 <span className="opacity-70">📖</span>{book.pages} pág.
                             </span>
                         )}
@@ -105,7 +105,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 pt-4 border-t-2 border-border-hard mt-auto w-full">
+            <div className="grid grid-cols-2 gap-2 pt-3 sm:pt-4 border-t-2 border-border-hard mt-auto w-full">
 
                 <div className="relative z-10 w-full flex">
                     {isAuthenticated ? (
@@ -114,7 +114,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                                 type="submit"
                                 disabled={readingListForm.processing}
                                 variant={isSaved ? "primary" : "secondary"}
-                                className="w-full text-[10px] sm:text-xs px-2 h-10"
+                                className="w-full text-[10px] sm:text-xs px-1 sm:px-2 h-9 sm:h-10"
                             >
                                 {isSaved ? 'Guardado' : 'Guardar'}
                             </Button>
@@ -122,7 +122,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                     ) : (
                         <Link
                             href="/login"
-                            className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-hard w-full text-center"
+                            className="group/button inline-flex h-9 sm:h-10 px-1 sm:px-2 gap-1 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 transition-all bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-hard w-full text-center"
                         >
                             Guardar
                         </Link>
@@ -136,13 +136,13 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                                 <AlertDialogTrigger asChild>
                                     <Button
                                         variant="primary"
-                                        className="w-full text-[10px] sm:text-xs px-2 h-10"
+                                        className="w-full text-[10px] sm:text-xs px-1 sm:px-2 h-9 sm:h-10"
                                     >
                                         Empréstimo
                                     </Button>
                                 </AlertDialogTrigger>
 
-                                <AlertDialogContent className="max-w-md">
+                                <AlertDialogContent className="max-w-md p-5 sm:p-6">
                                     <AlertDialogHeader className="flex flex-col items-center justify-center text-center w-full">
                                         <AlertDialogTitle className="text-center w-full">
                                             Confirmar Empréstimo?
@@ -167,7 +167,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                                 <Button
                                     disabled
                                     variant={hasActiveLoan ? "secondary" : "outline"}
-                                    className="w-full text-[10px] sm:text-xs px-2 h-10 opacity-50 cursor-not-allowed"
+                                    className="w-full text-[10px] sm:text-xs px-1 sm:px-2 h-9 sm:h-10 opacity-50 cursor-not-allowed"
                                 >
                                     {hasActiveLoan ? 'Emprestado' : 'Esgotado'}
                                 </Button>
@@ -177,7 +177,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                         book.stock > 0 ? (
                             <Link
                                 href="/login"
-                                className="group/button inline-flex h-10 px-2 gap-2 shrink-0 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard w-full text-center"
+                                className="group/button inline-flex h-9 sm:h-10 px-1 sm:px-2 gap-1 items-center justify-center rounded-none border-2 border-border-hard font-mono text-[10px] sm:text-xs font-bold uppercase select-none outline-none active:translate-x-0.5 active:translate-y-0.5 transition-all bg-primary text-primary-foreground hover:bg-primary/90 shadow-hard w-full text-center"
                             >
                                 Empréstimo
                             </Link>
@@ -185,7 +185,7 @@ export default function BookCard({ book, isSaved, hasActiveLoan = false }) {
                             <Button
                                 disabled
                                 variant="outline"
-                                className="w-full text-[10px] sm:text-xs px-2 h-10 opacity-50 cursor-not-allowed"
+                                className="w-full text-[10px] sm:text-xs px-1 sm:px-2 h-9 sm:h-10 opacity-50 cursor-not-allowed"
                             >
                                 Esgotado
                             </Button>
