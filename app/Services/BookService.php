@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class BookService
 {
@@ -99,16 +100,32 @@ class BookService
                 ['name' => $authorName]
             );
 
-            $uniqueKey = $work['key']; // /works/OL1234W tipo o isbn
+            $uniqueKey = $work['key']; // /works/OL1234W
+
+            $details = $this->openLibraryService->fetchWorkDetails($uniqueKey);
+
+            $pages = $details['number_of_pages'] ?? rand(180, 520);
+
+            $publisher = $details['publisher'] ?? ('Editora ' . Str::title($category->name));
+
+            $publishDate = isset($work['first_publish_year'])
+                ? (string) $work['first_publish_year']
+                : (isset($details['publish_date']) ? (string) $details['publish_date'] : (string) rand(1985, 2023));
+
+            $rating = round(rand(380, 500) / 100, 2);
 
             $book = Book::firstOrCreate(
                 ['isbn' => $uniqueKey],
                 [
-                    'title'       => $work['title'],
-                    'stock'       => rand(0, 30),
-                    'author_id'   => $author->id,
-                    'category_id' => $category->id,
-                    'cover_id'    => $work['cover_id'] ?? null
+                    'title'        => $work['title'],
+                    'stock'        => rand(0, 30),
+                    'author_id'    => $author->id,
+                    'category_id'  => $category->id,
+                    'cover_id'     => $work['cover_id'] ?? null,
+                    'publisher'    => $publisher,
+                    'publish_date' => $publishDate,
+                    'pages'        => $pages,
+                    'rating'       => $rating
                 ]
             );
 

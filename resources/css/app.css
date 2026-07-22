@@ -159,15 +159,23 @@
     --color-page: #0C0805;
     --color-panel: #150F0B;
     --color-panel-alt: #1F150F;
+
     --color-text-primary: #F7F4F2;
     --color-text-secondary: #AB9B90;
+
     --color-border: #000000;
+
     --color-oak: #D97706;
+
     --color-primary: #BE123C;
     --color-primary-foreground: #FFFFFF;
+
     --color-secondary: #2D1E16;
     --color-secondary-foreground: #F7F4F2;
+
     --color-ring: #BE123C;
+
+    --grid-color: rgba(255, 255, 255, 0.22);
 }
 
 @layer base {

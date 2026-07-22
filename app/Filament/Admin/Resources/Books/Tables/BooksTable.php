@@ -22,19 +22,19 @@ class BooksTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                ->label('ID')
-                ->sortable()
-                ->searchable(),
+                    ->label('ID')
+                    ->sortable()
+                    ->searchable(),
 
                 ImageColumn::make('cover_id')
                     ->label('Capa')
                     ->defaultImageUrl(fn ($record) => 'https://covers.openlibrary.org/b/id/' . $record->cover_id . '-M.jpg'),
 
                 TextColumn::make('title')
-                ->label('Título do Livro')
-                ->searchable()
-                ->sortable()
-                ->wrap(),
+                    ->label('Título do Livro')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap(),
 
                 TextColumn::make('author.name')
                     ->label('Autor')
@@ -45,6 +45,27 @@ class BooksTable
                     ->label('Categoria')
                     ->searchable()
                     ->sortable(),
+
+                TextColumn::make('rating')
+                    ->label('Nota')
+                    ->formatStateUsing(fn ($state) => $state ? "⭐ {$state}" : '-')
+                    ->sortable()
+                    ->alignCenter(),
+
+                TextColumn::make('pages')
+                    ->label('Páginas')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('publisher')
+                    ->label('Editora')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('publish_date')
+                    ->label('Publicado em')
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('isbn')
                     ->label('ISBN / Chave')
@@ -105,7 +126,7 @@ class BooksTable
                         try {
                             app(BookService::class)->delete($record->id);
                             Notification::make()
-                                ->title('Excluido com sucesso.')
+                                ->title('Excluído com sucesso.')
                                 ->success()
                                 ->send();
                         } catch (BookHasActiveLoansException $e) {

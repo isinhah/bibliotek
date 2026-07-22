@@ -26,4 +26,34 @@ class OpenLibraryService
 
         return $response->json()['works'] ?? [];
     }
+
+    public function fetchWorkDetails(string $workKey): array
+    {
+        try {
+            $response = Http::timeout(5)
+                ->get(self::BASE_URL . "{$workKey}/editions.json", [
+                    'limit' => 5
+                ]);
+
+            if ($response->successful()) {
+                $entries = $response->json()['entries'] ?? [];
+
+                $selectedEdition = collect($entries)->first(function ($edition) {
+                    return !empty($edition['number_of_pages']) && !empty($edition['publishers']);
+                }) ?? ($entries[0] ?? null);
+
+                if ($selectedEdition) {
+                    return [
+                        'number_of_pages' => $selectedEdition['number_of_pages'] ?? null,
+                        'publisher'       => $selectedEdition['publishers'][0] ?? null,
+                        'publish_date'    => $selectedEdition['publish_date'] ?? null,
+                    ];
+                }
+            }
+        } catch (\Exception $e) {
+
+        }
+
+        return [];
+    }
 }

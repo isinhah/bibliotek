@@ -57,22 +57,30 @@ class ReadingListResource extends Resource
     {
         return $table
             ->modifyQueryUsing(fn (Builder $query) =>
-    $query->whereHas('usersWhoSaved', fn ($q) => $q->where('user_id', auth()->id()))
-    )
-        ->columns([
-            ImageColumn::make('cover_id')
-                ->label('Capa')
-                ->defaultImageUrl(fn ($record) => 'https://covers.openlibrary.org/b/id/' . $record->cover_id . '-M.jpg'),
+            $query->whereHas('usersWhoSaved', fn ($q) => $q->where('user_id', auth()->id()))
+            )
+            ->columns([
+                ImageColumn::make('cover_id')
+                    ->label('Capa')
+                    ->defaultImageUrl(fn ($record) => 'https://covers.openlibrary.org/b/id/' . $record->cover_id . '-M.jpg'),
 
-            TextColumn::make('title')
-                ->label('Título')
-                ->searchable()
-                ->weight('bold'),
+                TextColumn::make('title')
+                    ->label('Título')
+                    ->searchable()
+                    ->weight('bold'),
 
-            TextColumn::make('author.name')
-                ->label('Autor'),
-        ])
-        ->actions([
+                TextColumn::make('author.name')
+                    ->label('Autor'),
+
+                TextColumn::make('rating')
+                    ->label('Nota')
+                    ->formatStateUsing(fn ($state) => $state ? "⭐ {$state}" : '-'),
+
+                TextColumn::make('pages')
+                    ->label('Páginas')
+                    ->numeric(),
+            ])
+            ->actions([
                 Action::make('remove')
                     ->label('Remover da Lista')
                     ->color('danger')

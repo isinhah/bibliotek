@@ -88,6 +88,36 @@ class BookForm
                                 'numeric' => 'O estoque deve ser um número inteiro',
                                 'min' => 'O estoque não deve ser negativo'
                             ]),
+
+                        TextInput::make('publisher')
+                            ->label('Editora')
+                            ->placeholder('Ex: Companhia das Letras, Aleph')
+                            ->nullable()
+                            ->string()
+                            ->maxLength(255),
+
+                        TextInput::make('publish_date')
+                            ->label('Ano / Data de Publicação')
+                            ->placeholder('Ex: 1954 ou 15/06/2001')
+                            ->nullable()
+                            ->string()
+                            ->maxLength(50),
+
+                        TextInput::make('pages')
+                            ->label('Número de Páginas')
+                            ->numeric()
+                            ->nullable()
+                            ->minValue(1)
+                            ->placeholder('Ex: 350'),
+
+                        TextInput::make('rating')
+                            ->label('Avaliação (0 a 5)')
+                            ->numeric()
+                            ->step('0.01')
+                            ->minValue(0)
+                            ->maxValue(5)
+                            ->placeholder('Ex: 4.85')
+                            ->nullable(),
                     ])
             ]);
     }

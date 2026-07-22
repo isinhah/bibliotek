@@ -14,11 +14,15 @@ class BookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => ['required', 'string', 'max:255'],
-            'stock'       => ['required', 'integer', 'min:0'],
-            'author_id'   => ['required', 'exists:authors,id'],
-            'category_id' => ['required', 'exists:categories,id'],
-            'isbn'        => ['nullable', 'string', 'max:50'],
+            'title'        => ['required', 'string', 'max:255'],
+            'stock'        => ['required', 'integer', 'min:0'],
+            'author_id'    => ['required', 'exists:authors,id'],
+            'category_id'  => ['required', 'exists:categories,id'],
+            'isbn'         => ['nullable', 'string', 'max:50'],
+            'publisher'    => ['nullable', 'string', 'max:255'],
+            'publish_date' => ['nullable', 'string', 'max:50'],
+            'pages'        => ['nullable', 'integer', 'min:1'],
+            'rating'       => ['nullable', 'numeric', 'min:0', 'max:5'],
         ];
     }
 
