@@ -21,4 +21,11 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+COPY . .
+
+RUN cp .env.example .env
+
+RUN composer install --no-interaction --no-progress --prefer-dist --no-scripts \
+    && npm install
+
 EXPOSE 8000
